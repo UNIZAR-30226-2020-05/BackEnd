@@ -3,14 +3,10 @@
 gradlew.bat,2\a\2a45a911a8f1836b0b6c5b758962572012d8f8c3
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
-Z
-*src/main/java/es/backend/dto/TareaDto.java,e\d\ed56f65347c1cce67627c1a4e01617f71f392b44
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-S
-#src/main/java/es/backend/Tarea.java,7\8\7858aba5bfbe640a6297c492d6521c532a4c21ed
 b
 2src/main/java/es/backend/BackEndPSApplication.java,c\3\c3205da32b63ac2ebca3b5c52f8cade77bdae530
 W

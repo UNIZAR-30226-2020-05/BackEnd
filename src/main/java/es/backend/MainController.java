@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
-@RequestMapping(path="/demo")
+@RequestMapping(path="/user")
 public class MainController {
 
     @Autowired

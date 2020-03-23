@@ -14,7 +14,7 @@ public class User {
 
     private String contrasena;
 
-    private Integer tipo_user;
+    private Boolean tipo_user;
 
     private String fecha_nacimiento;
 
@@ -48,11 +48,11 @@ public class User {
         this.contrasena = contrasena;
     }
 
-    public Integer getTipo_user() {
+    public Boolean getTipo_user() {
         return tipo_user;
     }
 
-    public void setTipo_user(Integer tipo_user) {
+    public void setTipo_user(Boolean tipo_user) {
         this.tipo_user = tipo_user;
     }
 
