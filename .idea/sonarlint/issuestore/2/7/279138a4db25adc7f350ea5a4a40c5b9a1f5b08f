@@ -1,0 +1,11 @@
+
+r	java:S1177"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉŒÏüÿÿÿÿ8¦½“·.
+j	java:S100/"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‘•ú8¦½“·.
+o	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉŒÏüÿÿÿÿ8¦½“·.
+p	java:S116"TRename this field "tipo_user" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°‚‹Ñ8ã²·.
+o	java:S100+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(º‰Ì÷ûÿÿÿÿ8¦½“·.
+m	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‘•ú8¦½“·.
+o	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úˆ¾„üÿÿÿÿ8¦½“·.
+|	java:S116"[Rename this field "fecha_nacimiento" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÕı›üÿÿÿÿ8ã²·.
+H
+java:S1128"+Remove this unused import 'java.util.Date'.(¸…¼ü8ñ×¸.
