@@ -6,14 +6,11 @@ En BackEndPSAppliation hacer click en run Spring Application
 
 ## Comandos BD MySQL
 
-- service mysql start
-   Arranca base de datos
+- service mysql start // Arranca base de datos cada vez que se vaya a usar
 
 LOS SIGUIENTES COMANDOS DEBERIAN EJECUTARSE SOLO LA PRIMERA VEZ
 
-- mysql  -u root -p
-   Inicia sesión en mysql
-
+- mysql  -u root -p // Inicia sesión en mysql
 - create DATABASE DB;
 - use DB;
 - CREATE USER 'user'@'localhost' IDENTIFIED BY 'password';
