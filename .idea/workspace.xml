@@ -2,28 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d57ad0b-c0e8-4b9d-972f-09616373d9bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/5/05a047e162d4f25fb220558ab910715bdad0ca76" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/7/279138a4db25adc7f350ea5a4a40c5b9a1f5b08f" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/5/45375b7ebcb34c24dd31f4b5b70f6da05270bd61" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/2/52642fffe3f0df2e02f7c0a34593022518577508" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/Song.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/dto/SongDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/request/SongRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/es/backend/MainController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/es/backend/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/es/backend/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/es/backend/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/es/backend/services/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/request/UserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/model/request/UserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/backend/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/backend/services/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,15 +40,27 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="patseho" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZUBNxtz1VQtg1J7iRA4oXWhqwX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -87,7 +83,14 @@
       <recent name="C:\Users\Lenovo\IdeaProjects\BackEnd" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.BackEndPSApplication (1)">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.BackEnd [clean]">
     <configuration name="BackEnd [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -107,14 +110,8 @@
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="BackEndPSApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="BackEndPSApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="BackEnd.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="es.backend.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="es.backend.BackEndPSApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,10 +139,31 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.BackEndPSApplication (1)" />
         <item itemvalue="Gradle.BackEnd [clean]" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Spring Boot" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Spring Boot" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Not Started" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -164,6 +182,8 @@
       <workItem from="1584985869824" duration="1780000" />
       <workItem from="1585156850399" duration="2186000" />
       <workItem from="1585159488144" duration="998000" />
+      <workItem from="1585163282915" duration="112000" />
+      <workItem from="1585163406406" duration="1803000" />
     </task>
     <servers />
   </component>
@@ -171,9 +191,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="488" y="48" key="#com.intellij.ide.util.MemberChooser" timestamp="1584959156108">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="233" y="0" key="#Notifications" timestamp="1585165721871">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
+    <state x="233" y="0" key="#Notifications/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585165721871" />
+    <state x="233" y="0" key="#Plugins" timestamp="1585163390725">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="0" key="#Plugins/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585163390725" />
+    <state x="457" y="45" key="#com.intellij.ide.util.MemberChooser" timestamp="1585164937684">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="457" y="45" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585164937684" />
     <state x="488" y="48" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1584959156108" />
     <state x="350" y="289" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1585157327848">
       <screen x="0" y="0" width="1366" height="728" />
@@ -187,6 +216,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="430" y="201" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1585160580130" />
+    <state x="265" y="0" key="CommitChangelistDialog2" timestamp="1585165708338">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="265" y="0" key="CommitChangelistDialog2/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585165708338" />
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1584896155708">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -243,6 +276,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="499" y="142" key="chooseDestDirectoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1584956863019" />
+    <state x="336" y="164" key="com.intellij.ide.util.TipDialog" timestamp="1585163409338">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="336" y="164" key="com.intellij.ide.util.TipDialog/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585163409338" />
+    <state x="376" y="234" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585165263369">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="376" y="234" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1585165263369" />
     <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1585160546496">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
