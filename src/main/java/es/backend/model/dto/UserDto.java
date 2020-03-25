@@ -1,8 +1,6 @@
-package es.backend.dto;
+package es.backend.model.dto;
 
-import es.backend.User;
-
-import java.util.Date;
+import es.backend.model.User;
 
 public class UserDto {
 

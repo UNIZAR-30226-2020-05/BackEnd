@@ -1,8 +1,6 @@
-package es.backend.request;
+package es.backend.model.request;
 
-import es.backend.User;
-
-import java.util.Date;
+import es.backend.model.User;
 
 public class UserRequest {
 

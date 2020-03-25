@@ -1,4 +1,4 @@
-package es.backend;
+package es.backend.model;
 
 import javax.persistence.*;
 import java.util.Date;
