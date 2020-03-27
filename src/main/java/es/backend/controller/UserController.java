@@ -1,5 +1,6 @@
 package es.backend.controller;
 
+import es.backend.model.User;
 import es.backend.model.request.UserRequest;
 import es.backend.model.dto.UserDto;
 import es.backend.services.UserService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller("UserController")
@@ -36,9 +38,28 @@ public class UserController {
          }
     }
 
+    @GetMapping(path="/get")
+    public ResponseEntity getUserByNick(String nick) {
+        Optional<User> userOptional = userService.getByNick(nick);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @GetMapping(path="/logIn")
+    public ResponseEntity getUserLogIn(String nick, String pass) {
+        Optional<User> userOptional = userService.getLogin(nick, pass);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
     @GetMapping(path="/findAll")
     public ResponseEntity<Collection<UserDto>> getAllUsers() {
-        // This returns a JSON or XML with the users
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll()
                 .stream()
                 .map(UserDto::new)
