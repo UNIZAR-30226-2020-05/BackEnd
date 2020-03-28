@@ -17,7 +17,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller("UserController")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
+        RequestMethod.DELETE,RequestMethod.PATCH})
 @RequestMapping(path="/user")
 public class UserController {
 
@@ -26,13 +27,11 @@ public class UserController {
 
     private Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @PostMapping(path="/create") // Map ONLY POST Requests
+    @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewUser (@RequestBody UserRequest userRequest) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-         if (userService.create(userRequest.toEntity())) {
-             return ResponseEntity.status(HttpStatus.OK).body("");
+        Optional<User> userOptional = userService.create(userRequest.toEntity());
+         if (userOptional.isPresent()) {
+             return ResponseEntity.status(HttpStatus.CREATED).body(new UserDto(userOptional.get()));
          } else {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
          }
@@ -53,6 +52,25 @@ public class UserController {
         Optional<User> userOptional = userService.getLogin(nick, pass);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @PatchMapping(path="/modifyPass/{id}")
+    public ResponseEntity modifyPassword(@PathVariable Integer id, @RequestBody String pass) {
+        Optional<User> userOptional = userService.setUserPasswordById(id, pass);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @DeleteMapping(path="/delete/{id}")
+    public ResponseEntity deleteUser(@PathVariable Integer id) {
+        if (userService.deleteUser(id)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
