@@ -12,10 +12,14 @@ public class Artist {
 
     private String name;
 
-    private String image_path;
+    //Nombre de la imagen del artista
+    private String image;
 
     @OneToMany(mappedBy = "artista")
     private List<Album> albumes;
+
+    @ManyToMany
+    private List<Song> canciones;
 
     public Integer getId() { return id; }
 
@@ -25,9 +29,9 @@ public class Artist {
 
     public void setName(String name) { this.name = name; }
 
-    public String getImage_path() { return image_path; }
+    public String getImage() { return image; }
 
-    public void setImage_path(String image_path) { this.image_path = image_path; }
+    public void setImage(String image) { this.image = image; }
 
     public List<Album> getAlbumes() {
         return albumes;
@@ -35,5 +39,13 @@ public class Artist {
 
     public void setAlbumes(List<Album> albumes) {
         this.albumes = albumes;
+    }
+
+    public List<Song> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(List<Song> canciones) {
+        this.canciones = canciones;
     }
 }

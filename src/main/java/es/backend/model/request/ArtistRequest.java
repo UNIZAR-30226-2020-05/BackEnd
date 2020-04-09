@@ -13,7 +13,7 @@ public class ArtistRequest {
 
     private String name;
 
-    private String image_path;
+    private String image;
 
     public Integer getId() { return id; }
 
@@ -23,15 +23,15 @@ public class ArtistRequest {
 
     public void setName(String name) { this.name = name; }
 
-    public String getImage_path() { return image_path; }
+    public String getImage_path() { return image; }
 
-    public void setImage_path(String image_path) { this.image_path = image_path; }
+    public void setImage_path(String image_path) { this.image = image_path; }
 
     public Artist toEntity(){
         Artist artist = new Artist();
         artist.setId(id);
         artist.setName(name);
-        artist.setImage_path(image_path);
+        artist.setImage(image);
         return artist;
     }
 

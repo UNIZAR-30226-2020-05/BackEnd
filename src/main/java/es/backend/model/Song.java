@@ -2,6 +2,7 @@ package es.backend.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Song {
@@ -16,6 +17,9 @@ public class Song {
 
     @ManyToOne
     private Album album;
+
+    @ManyToMany(mappedBy="canciones")
+    private List<Artist> artistas;
 
     public Integer getId() { return id; }
 
@@ -35,5 +39,13 @@ public class Song {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public List<Artist> getArtistas() {
+        return artistas;
+    }
+
+    public void setArtistas(List<Artist> artistas) {
+        this.artistas = artistas;
     }
 }

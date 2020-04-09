@@ -2,8 +2,10 @@ package es.backend.controller;
 
 import es.backend.model.Album;
 import es.backend.model.Artist;
+import es.backend.model.Song;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.ArtistDto;
+import es.backend.model.dto.SongDto;
 import es.backend.model.request.ArtistRequest;
 import es.backend.services.ArtistService;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller("ArtistController")
@@ -27,7 +31,7 @@ public class ArtistController {
 
     private Logger log = LoggerFactory.getLogger(ArtistController.class);
 
-    @PostMapping(path="/create")
+    @PostMapping(path="/add")
     public @ResponseBody ResponseEntity addNewArtist (@RequestBody ArtistRequest artistRequest) {
         Optional<Artist> artistOptional = artistService.create(artistRequest.toEntity());
         if (artistOptional.isPresent()) {
@@ -47,6 +51,22 @@ public class ArtistController {
         }
     }
 
+    @GetMapping(path="/getByName")
+    public ResponseEntity getArtistByName(String name) {
+        Optional<List<Artist>> artistOptional = artistService.getByName(name);
+        if (artistOptional.isPresent()) {
+            List<ArtistDto> listArtistDto = new LinkedList<>();
+            List<Artist> artists = artistOptional.get();
+            for (int i = 0; i < artists.size(); i++) {
+                listArtistDto.add(new ArtistDto(artists.get(i)));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(listArtistDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    /*
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteArtist(@PathVariable Integer id) {
         if (artistService.deleteArtist(id)) {
@@ -55,4 +75,5 @@ public class ArtistController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+     */
 }

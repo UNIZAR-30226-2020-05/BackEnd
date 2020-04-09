@@ -11,7 +11,7 @@ public class ArtistDto {
     public ArtistDto(Artist artist)
     {
          this.id = artist.getId();
-         this.image_path = artist.getImage_path();
+         this.image_path = artist.getImage();
          this.name = artist.getName();
          if (artist.getAlbumes() != null) {
             this.albumes = artist.getAlbumes()
