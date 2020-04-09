@@ -22,8 +22,9 @@ public class UserService {
 
     public Optional<User> create(User user) {
         ListaCancion listaCancion = new ListaCancion("Favoritos");
+        user = userRepository.save(user);
         listaCancionService.create(listaCancion, user);
-        return Optional.of(userRepository.save(user));
+        return Optional.of(user);
     }
 
     public Optional<User> getById(Integer id) {
@@ -52,6 +53,32 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+   /* public boolean sonAmigos(Integer id1, Integer id2) {
+        Optional<User> user1 = userRepository.findById(id1);
+        Optional<User> user2 = userRepository.findById(id2);
+    }
+*/
+    @Transactional
+    public Optional<User> addAmigos(Integer id1, Integer id2) {
+        Optional<User> user1 = userRepository.findById(id1);
+        Optional<User> user2 = userRepository.findById(id2);
+
+            System.out.println("----------------------");
+
+            System.out.println(user1.get().esAmigo(user2.get()));
+            System.out.println(user2.get().esAmigo(user1.get()));
+            user1.get().addAmigo(user2.get());
+            System.out.println(user1.get().esAmigo(user2.get()));
+            System.out.println(user2.get().esAmigo(user1.get()));
+            user2.get().addAmigo(user1.get());
+            System.out.println(user1.get().esAmigo(user2.get()));
+            System.out.println(user2.get().esAmigo(user1.get()));
+
+            System.out.println("----------------------");
+
+            return user1;
     }
 
     public List<User> findAll() {

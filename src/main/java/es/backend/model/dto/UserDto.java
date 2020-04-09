@@ -23,6 +23,13 @@ public class UserDto {
                     .collect(Collectors.toList());
         }
 
+        if (user.getAmigos() != null) {
+            this.amigos = user.getAmigos()
+                    .stream()
+                    .map(AmigoDto::new)
+                    .collect(Collectors.toList());
+        }
+
     }
 
     private Integer id;
@@ -42,6 +49,8 @@ public class UserDto {
     private Integer tipo_ultima_reproduccion;
 
     private List<ListaCancionDto> lista_cancion;
+
+    private List<AmigoDto> amigos;
 
     public Integer getId() {
         return id;
@@ -113,5 +122,13 @@ public class UserDto {
 
     public void setLista_cancion(List<ListaCancionDto> lista_cancion) {
         this.lista_cancion = lista_cancion;
+    }
+
+    public List<AmigoDto> getAmigos() {
+        return amigos;
+    }
+
+    public void setAmigos(List<AmigoDto> amigos) {
+        this.amigos = amigos;
     }
 }

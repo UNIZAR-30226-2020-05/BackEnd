@@ -16,6 +16,8 @@ public class SongService {
     // Es necesario hacer Create como servicio?
     public Optional<Song> create(Song song) { return Optional.of(songRepository.save(song)); }
 
+    public Optional<Song> getSong(Integer id) { return songRepository.findById(id); }
+
    /* public Optional<List<Song>> getByName(String name) { return songRepository.findByName(name); }
 
     public Optional<List<Song>> getByArtist(String name) { return songRepository.findByArtist(name); }*/

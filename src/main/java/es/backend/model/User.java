@@ -28,6 +28,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ListaCancion> lista_cancion;
 
+    @ManyToMany
+    private List<User> amigos;
+
     public Integer getId() {
         return id;
     }
@@ -104,4 +107,19 @@ public class User {
         this.lista_cancion.add(listaCancion);
     }
 
+    public List<User> getAmigos() {
+        return amigos;
+    }
+
+    public void setAmigos(List<User> amigos) {
+        this.amigos = amigos;
+    }
+
+    public void addAmigo(User user) {
+        this.amigos.add(user);
+    }
+
+    public Integer esAmigo(User user) {
+        return this.amigos.indexOf(user);
+    }
 }
