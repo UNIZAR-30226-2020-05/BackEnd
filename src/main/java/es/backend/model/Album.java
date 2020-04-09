@@ -1,7 +1,6 @@
 package es.backend.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,11 +10,15 @@ public class Album {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private Integer id_artista;
-
     private String titulo_album;
 
     private String caratula;
+
+    @ManyToOne
+    private Artist artista;
+
+    @OneToMany(mappedBy = "album")
+    private List<Song> canciones;
 
     //private List<Song> lista;
 
@@ -25,14 +28,6 @@ public class Album {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getId_artista() {
-        return id_artista;
-    }
-
-    public void setId_artista(Integer id_artista) {
-        this.id_artista = id_artista;
     }
 
     public String getTitulo_album() {
@@ -51,4 +46,19 @@ public class Album {
         this.caratula = caratula;
     }
 
+    public Artist getArtista() {
+        return artista;
+    }
+
+    public void setArtista(Artist artista) {
+        this.artista = artista;
+    }
+
+    public List<Song> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(List<Song> canciones) {
+        this.canciones = canciones;
+    }
 }

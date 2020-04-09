@@ -46,7 +46,6 @@ public class AlbumRequest {
 
     public Album toEntity() {
         Album album = new Album();
-        album.setId_artista(id_artista);
         album.setTitulo_album(titulo_album);
         album.setCaratula(caratula);
         return album;

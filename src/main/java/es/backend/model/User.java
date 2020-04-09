@@ -2,6 +2,7 @@ package es.backend.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -23,6 +24,9 @@ public class User {
     private Integer minuto_ultima_reproduccion;
 
     private Integer tipo_ultima_reproduccion;
+
+    @OneToMany(mappedBy = "user")
+    private List<ListaCancion> lista_cancion;
 
     public Integer getId() {
         return id;
@@ -86,6 +90,18 @@ public class User {
 
     public void setTipo_ultima_reproduccion(Integer tipo_ultima_reproduccion) {
         this.tipo_ultima_reproduccion = tipo_ultima_reproduccion;
+    }
+
+    public List<ListaCancion> getLista_cancion() {
+        return lista_cancion;
+    }
+
+    public void setLista_cancion(List<ListaCancion> lista_cancion) {
+        this.lista_cancion = lista_cancion;
+    }
+
+    public void addLista(ListaCancion listaCancion) {
+        this.lista_cancion.add(listaCancion);
     }
 
 }

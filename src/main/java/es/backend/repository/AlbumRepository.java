@@ -14,9 +14,9 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
 
     Optional<Album> findById(Integer id);
 
-    List<Album> findByTitulo_album(String titulo_album);
+    //List<Album> findByTitulo_album(String tituloAlbum);
 
-    List<Album> findById_artista(Integer id_artista);
+    //List<Album> findById_artista(Integer id_artista);
 
     //Optional<Album> addSongsToSongList(List<Song>);
 

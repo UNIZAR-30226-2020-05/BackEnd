@@ -35,7 +35,7 @@ public class AlbumController {
 
     @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewAlbum (@RequestBody AlbumRequest albumRequest) {
-        Optional<Album> albumOptional = albumService.create(albumRequest.toEntity());
+        Optional<Album> albumOptional = albumService.create(albumRequest.toEntity(), albumRequest.getId_artista());
         if (albumOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new AlbumDto(albumOptional.get()));
         } else {
@@ -53,21 +53,21 @@ public class AlbumController {
         }
     }
 
-    @GetMapping(path="/getByName")
+    /*@GetMapping(path="/getByName")
     public ResponseEntity<Collection<AlbumDto>> getAlbumByTitulo_album(String nameAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(albumService.getByTitulo_album(nameAlbum)
                 .stream()
                 .map(AlbumDto::new)
                 .collect(Collectors.toList()));
-    }
+    }*/
 
-    @GetMapping(path="/getByArtist")
+    /*@GetMapping(path="/getByArtist")
     public ResponseEntity<Collection<AlbumDto>> getAlbumByTitulo_album(Integer id_artista) {
         return ResponseEntity.status(HttpStatus.OK).body(albumService.getById_artista(id_artista)
                 .stream()
                 .map(AlbumDto::new)
                 .collect(Collectors.toList()));
-    }
+    }*/
 
     //@PostMapping(path="/add")
     //public @ResponseBody ResponseEntity addSongsToAlbum (List<song> songList) {

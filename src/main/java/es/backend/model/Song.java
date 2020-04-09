@@ -14,6 +14,9 @@ public class Song {
 
     private Date date_added;
 
+    @ManyToOne
+    private Album album;
+
     public Integer getId() { return id; }
 
     public void setId(Integer id) { this.id = id; }
@@ -26,4 +29,11 @@ public class Song {
 
     public void setDate_added(Date date_added) { this.date_added = date_added; }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
 }

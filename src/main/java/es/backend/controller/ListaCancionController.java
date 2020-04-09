@@ -38,7 +38,8 @@ public class ListaCancionController {
 
     @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewSongList (@RequestBody ListaCancionRequest listaCancionRequest) {
-        Optional<ListaCancion> listaCancionOptional = listaCancionService.create(listaCancionRequest.toEntity());
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.create(listaCancionRequest.toEntity(),
+                listaCancionRequest.getId_usuario());
         if (listaCancionOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new ListaCancionDto(listaCancionOptional.get()));
         } else {

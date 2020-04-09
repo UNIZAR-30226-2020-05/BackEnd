@@ -6,7 +6,7 @@ public class ListaCancionDto {
 
     public ListaCancionDto(ListaCancion lista) {
         this.id = lista.getId();
-        this.id_usuario = lista.getId_usuario();
+        this.id_usuario = lista.getUser().getId();
         this.nombre = lista.getNombre();
     }
 
