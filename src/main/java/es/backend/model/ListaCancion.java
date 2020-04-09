@@ -10,9 +10,23 @@ public class ListaCancion {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private Integer id_usuario;
+    @ManyToOne
+    private User user;
 
     private String nombre;
+
+    public ListaCancion(User user, String nombre) {
+        this.user = user;
+        this.nombre = nombre;
+    }
+
+    public ListaCancion(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ListaCancion() {
+
+    }
 
     public Integer getId() {
         return id;
@@ -22,12 +36,12 @@ public class ListaCancion {
         this.id = id;
     }
 
-    public Integer getId_usuario() {
-        return id_usuario;
+    public User getUser() {
+        return user;
     }
 
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNombre() {

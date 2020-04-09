@@ -1,5 +1,6 @@
 package es.backend.services;
 
+import es.backend.model.ListaCancion;
 import es.backend.model.User;
 import es.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,21 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ListaCancionService listaCancionService;
+
     public Optional<User> create(User user) {
+        ListaCancion listaCancion = new ListaCancion("Favoritos");
+        listaCancionService.create(listaCancion, user);
         return Optional.of(userRepository.save(user));
+    }
+
+    public Optional<User> getById(Integer id) {
+        return userRepository.findById(id);
     }
 
     public Optional<User> getByNick(String nick) {
@@ -46,4 +57,5 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
 }

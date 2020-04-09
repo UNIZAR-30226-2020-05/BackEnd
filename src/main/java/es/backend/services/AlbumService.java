@@ -29,13 +29,13 @@ public class AlbumService {
         return albumRepository.findById(id);
     }
 
-    public List<Album> getByTitulo_album(String titulo_album) {
+    /*public List<Album> getByTitulo_album(String titulo_album) {
         return albumRepository.findByTitulo_album(titulo_album);
-    }
+    }*/
 
-    public List<Album> getById_artista(Integer id_artista) {
+    /*public List<Album> getById_artista(Integer id_artista) {
         return albumRepository.findById_artista(id_artista);
-    }
+    }*/
 
     //@Transactional
     //public Optional<Album> addSongsToSongList(List<Song> SongList) {

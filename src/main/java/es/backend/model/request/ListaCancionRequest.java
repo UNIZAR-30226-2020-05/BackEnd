@@ -37,7 +37,6 @@ public class ListaCancionRequest {
 
     public ListaCancion toEntity() {
         ListaCancion lista = new ListaCancion();
-        lista.setId_usuario(id_usuario);
         lista.setNombre(nombre);
         return lista;
     }

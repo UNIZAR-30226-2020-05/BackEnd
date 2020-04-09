@@ -22,8 +22,17 @@ public class ListaCancionService {
     @Autowired
     private ListaCancionRepository listaCancionRepository;
 
-    public Optional<ListaCancion> create(ListaCancion lista) {
-        return Optional.of(listaCancionRepository.save(lista));
+    @Autowired
+    private UserService userService;
+
+    public Optional<ListaCancion> create(ListaCancion listaCancion, Integer idUser) {
+        listaCancion.setUser(userService.getById(idUser).get());
+        return Optional.of(listaCancionRepository.save(listaCancion));
+    }
+
+    public Optional<ListaCancion> create(ListaCancion listaCancion, User user) {
+        listaCancion.setUser(user);
+        return Optional.of(listaCancionRepository.save(listaCancion));
     }
 
     public Optional<ListaCancion> getById(Integer id) {
@@ -46,5 +55,6 @@ public class ListaCancionService {
         } else {
             return false;
         }
+
     }
 }

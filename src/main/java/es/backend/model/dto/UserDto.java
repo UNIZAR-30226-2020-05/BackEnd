@@ -2,6 +2,9 @@ package es.backend.model.dto;
 
 import es.backend.model.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UserDto {
 
     public UserDto(User user) {
@@ -13,6 +16,13 @@ public class UserDto {
         this.id_ultima_reproduccion = user.getId_ultima_reproduccion();
         this.minuto_ultima_reproduccion = user.getMinuto_ultima_reproduccion();
         this.tipo_ultima_reproduccion = user.getTipo_ultima_reproduccion();
+        if (user.getLista_cancion() != null) {
+            this.lista_cancion = user.getLista_cancion()
+                    .stream()
+                    .map(ListaCancionDto::new)
+                    .collect(Collectors.toList());
+        }
+
     }
 
     private Integer id;
@@ -30,6 +40,8 @@ public class UserDto {
     private Integer minuto_ultima_reproduccion;
 
     private Integer tipo_ultima_reproduccion;
+
+    private List<ListaCancionDto> lista_cancion;
 
     public Integer getId() {
         return id;
@@ -93,5 +105,13 @@ public class UserDto {
 
     public void setTipo_ultima_reproduccion(Integer tipo_ultima_reproduccion) {
         this.tipo_ultima_reproduccion = tipo_ultima_reproduccion;
+    }
+
+    public List<ListaCancionDto> getLista_cancion() {
+        return lista_cancion;
+    }
+
+    public void setLista_cancion(List<ListaCancionDto> lista_cancion) {
+        this.lista_cancion = lista_cancion;
     }
 }
