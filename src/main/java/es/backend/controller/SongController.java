@@ -44,7 +44,7 @@ public class SongController {
     }
 */
 
-    @GetMapping(path="/getByName")
+    /*@GetMapping(path="/getByName")
     public ResponseEntity getSongByName(String name) {
         Optional<List<Song>> songsOptional = songService.getByName(name);
         if (songsOptional.isPresent()) {
@@ -72,7 +72,7 @@ public class SongController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
-    }
+    }*/
     /*
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id) {
