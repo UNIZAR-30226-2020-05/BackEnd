@@ -1,11 +1,7 @@
 package es.backend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.awt.*;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Artist {
@@ -17,6 +13,9 @@ public class Artist {
     private String name;
 
     private String image_path;
+
+    @OneToMany(mappedBy = "artista")
+    private List<Album> albumes;
 
     public Integer getId() { return id; }
 
@@ -30,4 +29,11 @@ public class Artist {
 
     public void setImage_path(String image_path) { this.image_path = image_path; }
 
+    public List<Album> getAlbumes() {
+        return albumes;
+    }
+
+    public void setAlbumes(List<Album> albumes) {
+        this.albumes = albumes;
+    }
 }

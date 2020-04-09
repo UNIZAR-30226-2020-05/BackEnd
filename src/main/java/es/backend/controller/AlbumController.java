@@ -35,7 +35,7 @@ public class AlbumController {
 
     @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewAlbum (@RequestBody AlbumRequest albumRequest) {
-        Optional<Album> albumOptional = albumService.create(albumRequest.toEntity());
+        Optional<Album> albumOptional = albumService.create(albumRequest.toEntity(), albumRequest.getId_artista());
         if (albumOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new AlbumDto(albumOptional.get()));
         } else {

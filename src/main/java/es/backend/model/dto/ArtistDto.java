@@ -1,11 +1,10 @@
 package es.backend.model.dto;
 
+import es.backend.model.Album;
 import es.backend.model.Artist;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArtistDto {
 
@@ -14,6 +13,12 @@ public class ArtistDto {
          this.id = artist.getId();
          this.image_path = artist.getImage_path();
          this.name = artist.getName();
+         if (artist.getAlbumes() != null) {
+            this.albumes = artist.getAlbumes()
+                    .stream()
+                    .map(Album::getTitulo_album)
+                    .collect(Collectors.toList());
+         }
     }
 
     private Integer id;
@@ -21,6 +26,8 @@ public class ArtistDto {
     private String name;
 
     private String image_path;
+
+    private List<String> albumes;
 
     public Integer getId() { return id; }
 
@@ -34,4 +41,11 @@ public class ArtistDto {
 
     public void setImage_path(String image_path) { this.image_path = image_path; }
 
+    public List<String> getAlbumes() {
+        return albumes;
+    }
+
+    public void setAlbumes(List<String> albumes) {
+        this.albumes = albumes;
+    }
 }
