@@ -1,7 +1,6 @@
 package es.backend.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class ListaCancion {
@@ -11,12 +10,12 @@ public class ListaCancion {
     private Integer id;
 
     @ManyToOne
-    private User user;
+    private Usuario usuario;
 
     private String nombre;
 
-    public ListaCancion(User user, String nombre) {
-        this.user = user;
+    public ListaCancion(Usuario usuario, String nombre) {
+        this.usuario = usuario;
         this.nombre = nombre;
     }
 
@@ -36,12 +35,12 @@ public class ListaCancion {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getNombre() {

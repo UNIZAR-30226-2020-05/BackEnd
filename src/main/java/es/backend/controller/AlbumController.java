@@ -1,14 +1,9 @@
 package es.backend.controller;
 
 import es.backend.model.Album;
-import es.backend.model.ListaCancion;
-import es.backend.model.User;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.request.AlbumRequest;
-import es.backend.model.request.UserRequest;
-import es.backend.model.dto.UserDto;
 import es.backend.services.AlbumService;
-import es.backend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller("AlbumController")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,

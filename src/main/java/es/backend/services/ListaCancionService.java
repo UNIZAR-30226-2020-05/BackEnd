@@ -1,20 +1,12 @@
 package es.backend.services;
 
-import es.backend.model.Album;
 import es.backend.model.ListaCancion;
-import es.backend.model.Song;
-import es.backend.model.User;
-import es.backend.repository.AlbumRepository;
+import es.backend.model.Usuario;
 import es.backend.repository.ListaCancionRepository;
-import es.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,12 +18,12 @@ public class ListaCancionService {
     private UserService userService;
 
     public Optional<ListaCancion> create(ListaCancion listaCancion, Integer idUser) {
-        listaCancion.setUser(userService.getById(idUser).get());
+        listaCancion.setUsuario(userService.getById(idUser).get());
         return Optional.of(listaCancionRepository.save(listaCancion));
     }
 
-    public Optional<ListaCancion> create(ListaCancion listaCancion, User user) {
-        listaCancion.setUser(user);
+    public Optional<ListaCancion> create(ListaCancion listaCancion, Usuario usuario) {
+        listaCancion.setUsuario(usuario);
         return Optional.of(listaCancionRepository.save(listaCancion));
     }
 

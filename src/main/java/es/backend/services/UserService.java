@@ -1,12 +1,11 @@
 package es.backend.services;
 
 import es.backend.model.ListaCancion;
-import es.backend.model.User;
+import es.backend.model.Usuario;
 import es.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,27 +19,27 @@ public class UserService {
     @Autowired
     private ListaCancionService listaCancionService;
 
-    public Optional<User> create(User user) {
+    public Optional<Usuario> create(Usuario usuario) {
         ListaCancion listaCancion = new ListaCancion("Favoritos");
-        user = userRepository.save(user);
-        listaCancionService.create(listaCancion, user);
-        return Optional.of(user);
+        usuario = userRepository.save(usuario);
+        listaCancionService.create(listaCancion, usuario);
+        return Optional.of(usuario);
     }
 
-    public Optional<User> getById(Integer id) {
+    public Optional<Usuario> getById(Integer id) {
         return userRepository.findById(id);
     }
 
-    public Optional<User> getByNick(String nick) {
+    public Optional<Usuario> getByNick(String nick) {
         return userRepository.findByNick(nick);
     }
 
-    public Optional<User> getLogin(String nick, String pass) {
+    public Optional<Usuario> getLogin(String nick, String pass) {
         return userRepository.findByNickAndContrasena(nick, pass);
     }
 
     @Transactional
-    public Optional<User> setUserPasswordById(Integer id, String pass) {
+    public Optional<Usuario> setUserPasswordById(Integer id, String pass) {
         userRepository.setUserPasswordById(id, pass);
         return userRepository.findById(id);
     }
@@ -61,9 +60,9 @@ public class UserService {
     }
 */
     @Transactional
-    public Optional<User> addAmigos(Integer id1, Integer id2) {
-        Optional<User> user1 = userRepository.findById(id1);
-        Optional<User> user2 = userRepository.findById(id2);
+    public Optional<Usuario> addAmigos(Integer id1, Integer id2) {
+        Optional<Usuario> user1 = userRepository.findById(id1);
+        Optional<Usuario> user2 = userRepository.findById(id2);
 
             System.out.println("----------------------");
 
@@ -81,7 +80,7 @@ public class UserService {
             return user1;
     }
 
-    public List<User> findAll() {
+    public List<Usuario> findAll() {
         return userRepository.findAll();
     }
 

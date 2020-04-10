@@ -1,30 +1,30 @@
 package es.backend.model.dto;
 
-import es.backend.model.User;
+import es.backend.model.Usuario;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDto {
 
-    public UserDto(User user) {
-        this.id = user.getId();
-        this.nick = user.getNick();
-        this.contrasena = user.getContrasena();
-        this.tipo_user = user.getTipo_user();
-        this.fecha_nacimiento = user.getFecha_nacimiento();
-        this.id_ultima_reproduccion = user.getId_ultima_reproduccion();
-        this.minuto_ultima_reproduccion = user.getMinuto_ultima_reproduccion();
-        this.tipo_ultima_reproduccion = user.getTipo_ultima_reproduccion();
-        if (user.getLista_cancion() != null) {
-            this.lista_cancion = user.getLista_cancion()
+    public UserDto(Usuario usuario) {
+        this.id = usuario.getId();
+        this.nick = usuario.getNick();
+        this.contrasena = usuario.getContrasena();
+        this.tipo_user = usuario.getTipo_user();
+        this.fecha_nacimiento = usuario.getFecha_nacimiento();
+        this.id_ultima_reproduccion = usuario.getId_ultima_reproduccion();
+        this.minuto_ultima_reproduccion = usuario.getMinuto_ultima_reproduccion();
+        this.tipo_ultima_reproduccion = usuario.getTipo_ultima_reproduccion();
+        if (usuario.getLista_cancion() != null) {
+            this.lista_cancion = usuario.getLista_cancion()
                     .stream()
                     .map(ListaCancionDto::new)
                     .collect(Collectors.toList());
         }
 
-        if (user.getAmigos() != null) {
-            this.amigos = user.getAmigos()
+        if (usuario.getAmigos() != null) {
+            this.amigos = usuario.getAmigos()
                     .stream()
                     .map(AmigoDto::new)
                     .collect(Collectors.toList());

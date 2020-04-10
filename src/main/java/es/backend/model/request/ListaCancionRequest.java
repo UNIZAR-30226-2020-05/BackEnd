@@ -1,7 +1,6 @@
 package es.backend.model.request;
 
 import es.backend.model.ListaCancion;
-import es.backend.model.User;
 
 public class ListaCancionRequest {
 

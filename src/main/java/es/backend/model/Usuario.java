@@ -1,11 +1,10 @@
 package es.backend.model;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -25,11 +24,11 @@ public class User {
 
     private Integer tipo_ultima_reproduccion;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "usuario")
     private List<ListaCancion> lista_cancion;
 
     @ManyToMany
-    private List<User> amigos;
+    private List<Usuario> amigos;
 
     public Integer getId() {
         return id;
@@ -107,19 +106,19 @@ public class User {
         this.lista_cancion.add(listaCancion);
     }
 
-    public List<User> getAmigos() {
+    public List<Usuario> getAmigos() {
         return amigos;
     }
 
-    public void setAmigos(List<User> amigos) {
+    public void setAmigos(List<Usuario> amigos) {
         this.amigos = amigos;
     }
 
-    public void addAmigo(User user) {
-        this.amigos.add(user);
+    public void addAmigo(Usuario usuario) {
+        this.amigos.add(usuario);
     }
 
-    public Integer esAmigo(User user) {
-        return this.amigos.indexOf(user);
+    public Integer esAmigo(Usuario usuario) {
+        return this.amigos.indexOf(usuario);
     }
 }

@@ -1,6 +1,6 @@
 package es.backend.model.request;
 
-import es.backend.model.User;
+import es.backend.model.Usuario;
 
 public class UserRequest {
 
@@ -54,13 +54,13 @@ public class UserRequest {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public User toEntity() {
-        User user = new User();
-        user.setNick(nick);
-        user.setContrasena(contrasena);
-        user.setTipo_user(tipo_user);
-        user.setFecha_nacimiento(fecha_nacimiento);
-        return user;
+    public Usuario toEntity() {
+        Usuario usuario = new Usuario();
+        usuario.setNick(nick);
+        usuario.setContrasena(contrasena);
+        usuario.setTipo_user(tipo_user);
+        usuario.setFecha_nacimiento(fecha_nacimiento);
+        return usuario;
     }
 
 }

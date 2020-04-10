@@ -1,6 +1,6 @@
 package es.backend.model.dto;
 
-import es.backend.model.User;
+import es.backend.model.Usuario;
 import es.backend.services.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,11 +10,11 @@ public class AmigoDto {
     @Autowired
     private SongService songService;
 
-    public AmigoDto(User user) {
-        this.id = user.getId();
-        this.nick = user.getNick();
-        if (user.getId_ultima_reproduccion() != null) {
-            this.ultimaCancion = songService.getSong(user.getId_ultima_reproduccion()).get().getName();
+    public AmigoDto(Usuario usuario) {
+        this.id = usuario.getId();
+        this.nick = usuario.getNick();
+        if (usuario.getId_ultima_reproduccion() != null) {
+            this.ultimaCancion = songService.getSong(usuario.getId_ultima_reproduccion()).get().getName();
         }
     }
 

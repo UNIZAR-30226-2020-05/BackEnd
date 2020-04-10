@@ -1,6 +1,6 @@
 package es.backend.controller;
 
-import es.backend.model.User;
+import es.backend.model.Usuario;
 import es.backend.model.request.UserRequest;
 import es.backend.model.dto.UserDto;
 import es.backend.services.UserService;
@@ -29,7 +29,7 @@ public class UserController {
 
     @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewUser (@RequestBody UserRequest userRequest) {
-        Optional<User> userOptional = userService.create(userRequest.toEntity());
+        Optional<Usuario> userOptional = userService.create(userRequest.toEntity());
          if (userOptional.isPresent()) {
              return ResponseEntity.status(HttpStatus.CREATED).body(new UserDto(userOptional.get()));
          } else {
@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping(path="/get")
     public ResponseEntity getUserByNick(String nick) {
-        Optional<User> userOptional = userService.getByNick(nick);
+        Optional<Usuario> userOptional = userService.getByNick(nick);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
         } else {
@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping(path="/logIn")
     public ResponseEntity getUserLogIn(String nick, String pass) {
-        Optional<User> userOptional = userService.getLogin(nick, pass);
+        Optional<Usuario> userOptional = userService.getLogin(nick, pass);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
         } else {
@@ -59,7 +59,7 @@ public class UserController {
 
     @PatchMapping(path="/modifyPass/{id}")
     public ResponseEntity modifyPassword(@PathVariable Integer id, @RequestBody String pass) {
-        Optional<User> userOptional = userService.setUserPasswordById(id, pass);
+        Optional<Usuario> userOptional = userService.setUserPasswordById(id, pass);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
         } else {
@@ -69,7 +69,7 @@ public class UserController {
 
     @PatchMapping(path="/addAmigo/{id1}")
     public ResponseEntity addAmigo(@PathVariable Integer id1, @RequestBody Integer id2) {
-        Optional<User> userOptional = userService.addAmigos(id1, id2);
+        Optional<Usuario> userOptional = userService.addAmigos(id1, id2);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
         } else {
