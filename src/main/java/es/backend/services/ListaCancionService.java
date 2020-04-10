@@ -2,7 +2,7 @@ package es.backend.services;
 
 import es.backend.model.Album;
 import es.backend.model.ListaCancion;
-import es.backend.model.Song;
+import es.backend.model.Cancion;
 import es.backend.model.User;
 import es.backend.repository.AlbumRepository;
 import es.backend.repository.ListaCancionRepository;

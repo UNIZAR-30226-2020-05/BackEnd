@@ -15,10 +15,10 @@ public class Album {
     private String caratula;
 
     @ManyToOne
-    private Artist artista;
+    private Artista artista;
 
     @OneToMany(mappedBy = "album")
-    private List<Song> canciones;
+    private List<Cancion> canciones;
 
     //private List<Song> lista;
 
@@ -46,19 +46,19 @@ public class Album {
         this.caratula = caratula;
     }
 
-    public Artist getArtista() {
+    public Artista getArtista() {
         return artista;
     }
 
-    public void setArtista(Artist artista) {
+    public void setArtista(Artista artista) {
         this.artista = artista;
     }
 
-    public List<Song> getCanciones() {
+    public List<Cancion> getCanciones() {
         return canciones;
     }
 
-    public void setCanciones(List<Song> canciones) {
+    public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
     }
 }
