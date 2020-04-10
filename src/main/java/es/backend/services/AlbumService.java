@@ -1,7 +1,8 @@
 package es.backend.services;
 
 import es.backend.model.Album;
-import es.backend.model.Song;
+import es.backend.model.Artista;
+import es.backend.model.Cancion;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class AlbumService {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private ArtistService artistService;
+    private ArtistaService artistService;
 
     public Optional<Album> create(Album album, Integer idArtist) {
         album.setArtista(artistService.getById(idArtist).get());

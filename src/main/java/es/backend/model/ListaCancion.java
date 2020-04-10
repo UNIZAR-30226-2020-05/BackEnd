@@ -1,6 +1,8 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class ListaCancion {
@@ -11,6 +13,9 @@ public class ListaCancion {
 
     @ManyToOne
     private Usuario usuario;
+
+    @ManyToMany
+    private List<Cancion> canciones;
 
     private String nombre;
 
@@ -47,8 +52,6 @@ public class ListaCancion {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
 }

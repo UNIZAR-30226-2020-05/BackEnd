@@ -46,9 +46,11 @@ public class ListaCancionController {
         }
     }
 
-    //@PatchMapping(path="/add/{id_SongList}")
-    //public ResponseEntity addSongToSongList(@PathVariable Integer id_SongList, Integer id_song) {
-    //}
+    @PatchMapping(path="/add/{id_SongList}")
+    public ResponseEntity addSongToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_song) {
+        //Funcionalidad
+        return null;
+    }
 
     //@PatchMapping(path="/add/{id_SongList}")
     //public ResponseEntity addAlbumToSongList(@PathVariable Integer id_SongList, Integer id_album) {

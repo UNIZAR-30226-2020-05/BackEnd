@@ -1,6 +1,9 @@
 package es.backend.services;
 
+import es.backend.model.Album;
 import es.backend.model.ListaCancion;
+import es.backend.model.Cancion;
+import es.backend.repository.AlbumRepository;
 import es.backend.model.Usuario;
 import es.backend.repository.ListaCancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

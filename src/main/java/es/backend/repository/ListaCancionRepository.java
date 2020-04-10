@@ -20,8 +20,6 @@ public interface ListaCancionRepository extends JpaRepository<ListaCancion, Inte
     //@Query("SELECT id_cancion FROM Union1 WHERE id_listaCancion == ?1")
     //List<Integer> findIdSongByIdSongList(Integer idSongList);
 
-
-
     void deleteById(Integer id);
 
 }
