@@ -11,11 +11,11 @@ public class AlbumDto {
         this.id = album.getId();
         this.titulo_album = album.getTitulo_album();
         this.caratula = album.getCaratula();
-        this.artista = new ArtistDto(album.getArtista());
+        this.artista = new ArtistaDto(album.getArtista());
         if (album.getCanciones() != null) {
             this.canciones = album.getCanciones()
                     .stream()
-                    .map(SongDto::new)
+                    .map(CancionDto::new)
                     .collect(Collectors.toList());
         }
     }
@@ -26,9 +26,9 @@ public class AlbumDto {
 
     private String caratula;
 
-    private ArtistDto artista;
+    private ArtistaDto artista;
 
-    private List<SongDto> canciones;
+    private List<CancionDto> canciones;
 
     public Integer getId() {
         return id;
@@ -54,19 +54,19 @@ public class AlbumDto {
         this.caratula = caratula;
     }
 
-    public ArtistDto getArtista() {
+    public ArtistaDto getArtista() {
         return artista;
     }
 
-    public void setArtista(ArtistDto artista) {
+    public void setArtista(ArtistaDto artista) {
         this.artista = artista;
     }
 
-    public List<SongDto> getCanciones() {
+    public List<CancionDto> getCanciones() {
         return canciones;
     }
 
-    public void setCanciones(List<SongDto> canciones) {
+    public void setCanciones(List<CancionDto> canciones) {
         this.canciones = canciones;
     }
 }

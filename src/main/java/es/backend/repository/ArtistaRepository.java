@@ -12,8 +12,8 @@ public interface ArtistaRepository extends JpaRepository<Artista, Integer> {
     @Query("SELECT artistas FROM Cancion where nombre = ?1")
     Optional<List<Artista>> searchBySong(String song);
 
-    @Query("SELECT * FROM ARTISTA WHERE NAME = ?1")
-    Optional<List<Artista>> findByName(String name);
+   /* @Query("SELECT * FROM ARTISTA WHERE NAME = ?1")
+    Optional<List<Artista>> findByName(String name);*/
 
     void deleteById(Integer id);
 

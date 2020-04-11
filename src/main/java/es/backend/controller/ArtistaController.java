@@ -48,7 +48,7 @@ public class ArtistaController {
         }
     }
 
-    @GetMapping(path="/getByName")
+   /* @GetMapping(path="/getByName")
     public ResponseEntity getArtistaByName(String name) {
         Optional<List<Artista>> artistOptional = artistService.getByName(name);
         if (artistOptional.isPresent()) {
@@ -61,5 +61,5 @@ public class ArtistaController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
-    }
+    }*/
 }
