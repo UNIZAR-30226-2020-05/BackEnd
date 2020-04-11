@@ -9,7 +9,7 @@ public class AlbumDto {
 
     public AlbumDto(Album album) {
         this.id = album.getId();
-        this.titulo_album = album.getTitulo_album();
+        this.titulo = album.getTitulo();
         this.caratula = album.getCaratula();
         this.artista = new ArtistaDto(album.getArtista());
         if (album.getCanciones() != null) {
@@ -22,7 +22,7 @@ public class AlbumDto {
 
     private Integer id;
 
-    private String titulo_album;
+    private String titulo;
 
     private String caratula;
 
@@ -38,12 +38,12 @@ public class AlbumDto {
         this.id = id;
     }
 
-    public String getTitulo_album() {
-        return titulo_album;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTitulo_album(String titulo_album) {
-        this.titulo_album = titulo_album;
+    public void setTitulo(String titulo_album) {
+        this.titulo = titulo_album;
     }
 
     public String getCaratula() {

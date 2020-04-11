@@ -1,5 +1,7 @@
 package es.backend.services;
 
+import es.backend.model.Album;
+import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.repository.CancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,11 @@ public class CancionService {
     @Autowired
     private CancionRepository cancionRepository;
 
-    public Optional<Cancion> create(Cancion song) { return Optional.of(cancionRepository.save(song)); }
+    public Optional<Cancion> create(Cancion cancion, Album album, List<Artista> artistas) {
+        cancion.setAlbum(album);
+        cancion.setArtistas(artistas);
+        return Optional.of(cancionRepository.save(cancion));
+    }
 
     public Optional<Cancion> getById(Integer id) { return cancionRepository.findById(id); }
 

@@ -17,7 +17,7 @@ public class ArtistaDto {
          if (a.getAlbumes() != null) {
             this.albumes = a.getAlbumes()
                     .stream()
-                    .map(Album::getTitulo_album)
+                    .map(Album::getTitulo)
                     .collect(Collectors.toList());
          }
         if (a.getCanciones() != null) {

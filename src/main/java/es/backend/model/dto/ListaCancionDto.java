@@ -1,6 +1,12 @@
 package es.backend.model.dto;
 
+import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListaCancionDto {
 
@@ -8,6 +14,12 @@ public class ListaCancionDto {
         this.id = lista.getId();
         this.id_usuario = lista.getUsuario().getId();
         this.nombre = lista.getNombre();
+        List<CancionDto> cancionesDto = new ArrayList<CancionDto>();
+        List<Cancion> canc = lista.getCanciones();
+        for(int i=0; i < canc.size();i++){
+            cancionesDto.add(new CancionDto(canc.get(i)));
+        }
+        this.canciones = cancionesDto;
     }
 
     private Integer id;
@@ -15,6 +27,8 @@ public class ListaCancionDto {
     private Integer id_usuario;
 
     private String nombre;
+
+    private List<CancionDto> canciones;
 
     public Integer getId() {
         return id;

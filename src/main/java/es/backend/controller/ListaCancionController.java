@@ -48,13 +48,21 @@ public class ListaCancionController {
 
     @PatchMapping(path="/add/{id_SongList}")
     public ResponseEntity addSongToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_song) {
-        //Funcionalidad
-        return null;
+        if (listaCancionService.addSong(id_SongList, id_song)){
+            return ResponseEntity.status(HttpStatus.OK).body("");
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
     }
 
-    //@PatchMapping(path="/add/{id_SongList}")
-    //public ResponseEntity addAlbumToSongList(@PathVariable Integer id_SongList, Integer id_album) {
-    //}
+    @PatchMapping(path="/addByAlbum/{id_SongList}")
+    public ResponseEntity addAlbumToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_album) {
+        if (listaCancionService.addAlbum(id_SongList, id_album)){
+            return ResponseEntity.status(HttpStatus.OK).body("");
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
 
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteSongList(@PathVariable Integer id) {

@@ -40,12 +40,7 @@ public class CancionRequest {
         Cancion song = new Cancion();
         song.setNombre(nombre);
         song.setFecha_subida(fecha_subida);
-        //song.setAlbum(AlbumService.getByName(album));
         song.setAlbum(null);
-        for(String s : artistas){
-            //Artista a = ArtistaService.getByName(s);
-            //if(a != null) song.addArtista(a);
-        }
         song.setArtistas(null);
         return song;
     }

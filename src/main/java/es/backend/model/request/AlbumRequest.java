@@ -8,7 +8,7 @@ public class AlbumRequest {
 
     private Integer id_artista;
 
-    private String titulo_album;
+    private String titulo;
 
     private String caratula;
 
@@ -28,12 +28,12 @@ public class AlbumRequest {
         this.id_artista = id_artista;
     }
 
-    public String getTitulo_album() {
-        return titulo_album;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTitulo_album(String titulo_album) {
-        this.titulo_album = titulo_album;
+    public void setTitulo(String titulo_album) {
+        this.titulo = titulo_album;
     }
 
     public String getCaratula() {
@@ -46,7 +46,7 @@ public class AlbumRequest {
 
     public Album toEntity() {
         Album album = new Album();
-        album.setTitulo_album(titulo_album);
+        album.setTitulo(titulo);
         album.setCaratula(caratula);
         return album;
     }

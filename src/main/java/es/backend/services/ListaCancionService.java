@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,12 @@ public class ListaCancionService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CancionService cancionService;
+
+    @Autowired
+    private AlbumService albumService;
 
     public Optional<ListaCancion> create(ListaCancion listaCancion, Integer idUser) {
         listaCancion.setUsuario(userService.getById(idUser).get());
@@ -34,13 +41,30 @@ public class ListaCancionService {
         return listaCancionRepository.findById(id);
     }
 
-    //public Optional<> addSongToSongList(Integer id){
-    //Añadir id de cancion a la lista
-    //}
+    public boolean addSong(Integer id_lista, Integer id_cancion) {
+        Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
+        Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
+        if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
+            optionalListaCancion.get().addCancion(optionalCancion.get());
+            return true;
+        }else {
+            return false;
+        }
+    }
 
-    //public Optional<> addAlbumToSongList(Integer id){
-    //Añadir los id de las canciones pertenecientes al album a lista
-    //}
+    public boolean addAlbum(Integer id_lista, Integer id_album) {
+        Optional<Album> optionalAlbum= albumService.getById(id_album);
+        Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
+        if(optionalAlbum.isPresent() && optionalListaCancion.isPresent()){
+            List<Cancion> canciones = optionalAlbum.get().getCanciones();
+            for(int i = 0;i < canciones.size();i++){
+                optionalListaCancion.get().addCancion(canciones.get(i));
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Transactional
     public Boolean deleteListaCancion(Integer id) {

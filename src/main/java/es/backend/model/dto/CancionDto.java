@@ -13,7 +13,7 @@ public class CancionDto {
         this.id = song.getId();
         this.name = song.getNombre();
         this.fecha_subida = song.getFecha_subida();
-        this.album = song.getAlbum().getTitulo_album();
+        this.album = song.getAlbum().getTitulo();
         if(song.getArtistas() != null){
             song.getArtistas()
                     .stream()

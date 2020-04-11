@@ -3,13 +3,13 @@ package es.backend.services;
 import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
+import es.backend.model.ListaCancion;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AlbumService {
@@ -17,31 +17,35 @@ public class AlbumService {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private ArtistaService artistService;
+    private ArtistaService artistaService;
 
-    public Optional<Album> create(Album album, Integer idArtist) {
-        album.setArtista(artistService.getById(idArtist).get());
-        return Optional.of(albumRepository.save(album));
-    }
-
+    @Autowired
+    private CancionService cancionService;
 
     public Optional<Album> getById(Integer id) {
         return albumRepository.findById(id);
     }
 
-    /*public List<Album> getByTitulo_album(String titulo_album) {
-        return albumRepository.findByTitulo_album(titulo_album);
-    }*/
+    public List<Album> getByTitulo_album(String titulo_album) {
+        return albumRepository.findByTitulo(titulo_album);
+    }
 
-    /*public List<Album> getById_artista(Integer id_artista) {
-        return albumRepository.findById_artista(id_artista);
-    }*/
+    public List<Album> getByArtista(Integer id_artista) {
+        return albumRepository.findByArtista(artistaService.getById(id_artista).get());
+    }
 
-    //@Transactional
-    //public Optional<Album> addSongsToSongList(List<Song> SongList) {
-    //    return albumRepository.addSongsToSongList(SongList);
-    //}
-
+    public Optional<Album> add(Album album, Collection<Cancion> canciones, Integer id_artista){
+        album = albumRepository.save(album);
+        List<Artista> artistas = new ArrayList<Artista>();
+        artistas.add(artistaService.getById(id_artista).get());
+        Iterator<Cancion> iterator = canciones.iterator();
+        while(iterator.hasNext()){
+            cancionService.create(iterator.next(), album, artistas);
+        }
+        album.setArtista(artistas.get(0));
+        return Optional.of(album);
+    }
+/*
     @Transactional
     public Boolean deleteAlbum(Integer id) {
         if (albumRepository.findById(id).isPresent()) {
@@ -51,5 +55,5 @@ public class AlbumService {
             return false;
         }
     }
-
+*/
 }

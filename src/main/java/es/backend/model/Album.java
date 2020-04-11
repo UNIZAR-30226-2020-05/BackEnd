@@ -10,7 +10,7 @@ public class Album {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private String titulo_album;
+    private String titulo;
 
     private String caratula;
 
@@ -20,8 +20,6 @@ public class Album {
     @OneToMany(mappedBy = "album")
     private List<Cancion> canciones;
 
-    //private List<Song> lista;
-
     public Integer getId() {
         return id;
     }
@@ -30,17 +28,15 @@ public class Album {
         this.id = id;
     }
 
-    public String getTitulo_album() {
-        return titulo_album;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTitulo_album(String titulo_album) {
-        this.titulo_album = titulo_album;
+    public void setTitulo(String titulo_album) {
+        this.titulo = titulo_album;
     }
 
-    public String getCaratula() {
-        return caratula;
-    }
+    public String getCaratula() { return caratula; }
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;
@@ -61,4 +57,5 @@ public class Album {
     public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
     }
+
 }
