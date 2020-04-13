@@ -4,21 +4,13 @@ import es.backend.model.Album;
 
 public class AlbumRequest {
 
-    private Integer id;
-
     private Integer id_artista;
 
     private String titulo;
 
     private String caratula;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private CancionRequest[] canciones;
 
     public Integer getId_artista() {
         return id_artista;
@@ -42,6 +34,14 @@ public class AlbumRequest {
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;
+    }
+
+    public CancionRequest[] getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(CancionRequest[] canciones) {
+        this.canciones = canciones;
     }
 
     public Album toEntity() {

@@ -1,10 +1,13 @@
 package es.backend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.CancionDto;
+import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.AlbumRequest;
 import es.backend.model.request.CancionRequest;
 import es.backend.services.AlbumService;
@@ -17,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -60,14 +64,16 @@ public class AlbumController {
     }
 
     @PostMapping(path="/add")
-    public @ResponseBody ResponseEntity add (@RequestBody AlbumRequest albumRequest, @RequestBody List<CancionRequest> cancionesRequest) {
-        Collection<Cancion> canciones = cancionesRequest
-                .stream()
-                .map(CancionRequest::toEntity)
-                .collect(Collectors.toList());
-        if(albumService.add(albumRequest.toEntity(), canciones, albumRequest.getId_artista()).isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body("");
-        }else{
+    public @ResponseBody ResponseEntity add (@RequestBody AlbumRequest albumRequest) throws JsonProcessingException {
+
+        List<Cancion> canciones = new ArrayList<>();
+        for (CancionRequest cancionRequest : albumRequest.getCanciones()) {
+            canciones.add(cancionRequest.toEntity());
+        }
+        Optional<Album> albumOptional = albumService.add(albumRequest.toEntity(), canciones, albumRequest.getId_artista());
+        if(albumOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(new AlbumDto(albumOptional.get()));
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }

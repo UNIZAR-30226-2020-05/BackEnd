@@ -11,7 +11,7 @@ public class AlbumDto {
         this.id = album.getId();
         this.titulo = album.getTitulo();
         this.caratula = album.getCaratula();
-        this.artista = new ArtistaDto(album.getArtista());
+        this.artista = album.getArtista().getNombre();
         if (album.getCanciones() != null) {
             this.canciones = album.getCanciones()
                     .stream()
@@ -26,7 +26,7 @@ public class AlbumDto {
 
     private String caratula;
 
-    private ArtistaDto artista;
+    private String artista;
 
     private List<CancionDto> canciones;
 
@@ -54,11 +54,11 @@ public class AlbumDto {
         this.caratula = caratula;
     }
 
-    public ArtistaDto getArtista() {
+    public String getArtista() {
         return artista;
     }
 
-    public void setArtista(ArtistaDto artista) {
+    public void setArtista(String artista) {
         this.artista = artista;
     }
 

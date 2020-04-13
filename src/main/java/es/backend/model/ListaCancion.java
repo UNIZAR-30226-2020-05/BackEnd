@@ -1,6 +1,7 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,8 +16,11 @@ public class ListaCancion {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToMany
-    private List<Cancion> canciones;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "lista_cancion_canciones",
+            joinColumns = { @JoinColumn(name = "lista_cancion_id") },
+            inverseJoinColumns = { @JoinColumn(name = "cancion_id") })
+    private List<Cancion> canciones = new ArrayList<Cancion>();
 
     public ListaCancion(String nombre) {
         this.nombre = nombre;
@@ -38,7 +42,7 @@ public class ListaCancion {
 
     public List<Cancion> getCanciones(){ return canciones; }
 
-    public void addCancion(Cancion cancion){ canciones.add(cancion); }
+    public void addCancion(Cancion cancion){ System.out.println(canciones.add(cancion)); }
 
     public void deleteCancion(Cancion cancion){ canciones.remove(cancion); }
 }

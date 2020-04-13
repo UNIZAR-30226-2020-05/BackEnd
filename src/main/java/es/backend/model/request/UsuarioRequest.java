@@ -2,9 +2,13 @@ package es.backend.model.request;
 
 import es.backend.model.Usuario;
 
-public class UserRequest {
+import java.util.Date;
 
-    private Integer id;
+public class UsuarioRequest {
+
+    private String nombre;
+
+    private String apellidos;
 
     private String nick;
 
@@ -12,14 +16,22 @@ public class UserRequest {
 
     private Boolean tipo_user;
 
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
 
-    public Integer getId() {
-        return id;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getNick() {
@@ -46,16 +58,18 @@ public class UserRequest {
         this.tipo_user = tipo_user;
     }
 
-    public String getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
     public Usuario toEntity() {
         Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setApellidos(apellidos);
         usuario.setNick(nick);
         usuario.setContrasena(contrasena);
         usuario.setTipo_user(tipo_user);

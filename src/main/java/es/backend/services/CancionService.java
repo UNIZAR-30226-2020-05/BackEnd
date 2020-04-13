@@ -17,9 +17,9 @@ public class CancionService {
     @Autowired
     private CancionRepository cancionRepository;
 
-    public Optional<Cancion> create(Cancion cancion, Album album, List<Artista> artistas) {
+    public Optional<Cancion> create(Cancion cancion, Album album, Artista artista) {
         cancion.setAlbum(album);
-        cancion.setArtistas(artistas);
+        cancion.addArtista(artista);
         return Optional.of(cancionRepository.save(cancion));
     }
 
