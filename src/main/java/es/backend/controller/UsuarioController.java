@@ -1,8 +1,8 @@
 package es.backend.controller;
 
 import es.backend.model.Usuario;
-import es.backend.model.request.UserRequest;
-import es.backend.model.dto.UserDto;
+import es.backend.model.request.UsuarioRequest;
+import es.backend.model.dto.UsuarioDto;
 import es.backend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,18 +20,18 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
         RequestMethod.DELETE,RequestMethod.PATCH})
 @RequestMapping(path="/user")
-public class UserController {
+public class UsuarioController {
 
     @Autowired
     private UserService userService;
 
-    private Logger log = LoggerFactory.getLogger(UserController.class);
+    private Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
     @PostMapping(path="/create")
-    public @ResponseBody ResponseEntity addNewUser (@RequestBody UserRequest userRequest) {
-        Optional<Usuario> userOptional = userService.create(userRequest.toEntity());
+    public @ResponseBody ResponseEntity addNewUser (@RequestBody UsuarioRequest usuarioRequest) {
+        Optional<Usuario> userOptional = userService.create(usuarioRequest.toEntity());
          if (userOptional.isPresent()) {
-             return ResponseEntity.status(HttpStatus.CREATED).body(new UserDto(userOptional.get()));
+             return ResponseEntity.status(HttpStatus.CREATED).body(new UsuarioDto(userOptional.get()));
          } else {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
          }
@@ -41,7 +41,7 @@ public class UserController {
     public ResponseEntity getUserByNick(String nick) {
         Optional<Usuario> userOptional = userService.getByNick(nick);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -51,7 +51,7 @@ public class UserController {
     public ResponseEntity getUserLogIn(String nick, String pass) {
         Optional<Usuario> userOptional = userService.getLogin(nick, pass);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -61,7 +61,7 @@ public class UserController {
     public ResponseEntity modifyPassword(@PathVariable Integer id, @RequestBody String pass) {
         Optional<Usuario> userOptional = userService.setUserPasswordById(id, pass);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -71,7 +71,7 @@ public class UserController {
     public ResponseEntity addAmigo(@PathVariable Integer id1, @RequestBody Integer id2) {
         Optional<Usuario> userOptional = userService.addAmigos(id1, id2);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UserDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -87,10 +87,10 @@ public class UserController {
     }
 
     @GetMapping(path="/findAll")
-    public ResponseEntity<Collection<UserDto>> getAllUsers() {
+    public ResponseEntity<Collection<UsuarioDto>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll()
                 .stream()
-                .map(UserDto::new)
+                .map(UsuarioDto::new)
                 .collect(Collectors.toList()));
     }
 }

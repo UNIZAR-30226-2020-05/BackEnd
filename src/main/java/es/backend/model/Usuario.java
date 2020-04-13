@@ -1,6 +1,7 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -10,13 +11,17 @@ public class Usuario {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    private String nombre;
+
+    private String apellidos;
+
     private String nick;
 
     private String contrasena;
 
     private Boolean tipo_user;
 
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
 
     private Integer id_ultima_reproduccion;
 
@@ -36,6 +41,22 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getNick() {
@@ -62,11 +83,11 @@ public class Usuario {
         this.tipo_user = tipo_user;
     }
 
-    public String getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 

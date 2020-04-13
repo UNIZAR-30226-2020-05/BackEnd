@@ -1,10 +1,7 @@
 package es.backend.services;
 
-import es.backend.model.Album;
-import es.backend.model.ListaCancion;
-import es.backend.model.Cancion;
+import es.backend.model.*;
 import es.backend.repository.AlbumRepository;
-import es.backend.model.Usuario;
 import es.backend.repository.ListaCancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ListaCancionService {
@@ -41,14 +39,17 @@ public class ListaCancionService {
         return listaCancionRepository.findById(id);
     }
 
-    public boolean addSong(Integer id_lista, Integer id_cancion) {
+    public Optional<ListaCancion> addSong(Integer id_lista, Integer id_cancion) {
         Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
+        System.out.println("Lista:" + optionalListaCancion.get().getCanciones().stream().map(Cancion::getNombre)
+                .collect(Collectors.toList()));
+        System.out.println(optionalCancion.get().getNombre());
         if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
             optionalListaCancion.get().addCancion(optionalCancion.get());
-            return true;
-        }else {
-            return false;
+            return optionalListaCancion;
+        } else {
+            return optionalListaCancion;
         }
     }
 

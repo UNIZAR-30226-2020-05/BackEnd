@@ -1,13 +1,12 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Cancion {
-
-    //static private String route = "/songs/";
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -17,11 +16,13 @@ public class Cancion {
 
     private Date fecha_subida;
 
+    private Integer duracion;
+
     @ManyToOne
     private Album album;
 
     @ManyToMany
-    private List<Artista> artistas;
+    private List<Artista> artistas = new ArrayList();
 
     public Integer getId() { return id; }
 
@@ -35,6 +36,14 @@ public class Cancion {
 
     public void setFecha_subida(Date fecha_subida) { this.fecha_subida = fecha_subida; }
 
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
+    }
+
     public Album getAlbum() { return album; }
 
     public void setAlbum(Album album) { this.album = album; }
@@ -43,7 +52,11 @@ public class Cancion {
 
     public void setArtistas(List<Artista> as) { this.artistas = as; }
 
-    public void addArtista(Artista a) { this.artistas.add(a); }
+    public void addArtista(Artista a) {
+        System.out.println(a.getId());
+        System.out.println(a.getNombre());
+        this.artistas.add(a);
+    }
 
     public void removeArtista(Artista a) { this.artistas.remove(a); }
 

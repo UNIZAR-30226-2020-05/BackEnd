@@ -2,6 +2,7 @@ package es.backend.controller;
 
 import es.backend.model.ListaCancion;
 import es.backend.model.dto.ListaCancionDto;
+import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.ListaCancionRequest;
 import es.backend.services.ListaCancionService;
 import org.slf4j.Logger;
@@ -48,8 +49,9 @@ public class ListaCancionController {
 
     @PatchMapping(path="/add/{id_SongList}")
     public ResponseEntity addSongToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_song) {
-        if (listaCancionService.addSong(id_SongList, id_song)){
-            return ResponseEntity.status(HttpStatus.OK).body("");
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.addSong(id_SongList, id_song);
+        if (listaCancionOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }

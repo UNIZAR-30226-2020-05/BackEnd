@@ -9,18 +9,18 @@ import java.util.stream.Collectors;
 
 public class CancionDto {
 
-    public CancionDto(Cancion song){
-        this.id = song.getId();
-        this.name = song.getNombre();
-        this.fecha_subida = song.getFecha_subida();
-        this.album = song.getAlbum().getTitulo();
-        if(song.getArtistas() != null){
-            song.getArtistas()
+    public CancionDto(Cancion cancion){
+        this.id = cancion.getId();
+        this.name = cancion.getNombre();
+        this.fecha_subida = cancion.getFecha_subida();
+        this.duracion = cancion.getDuracion();
+        this.album = cancion.getAlbum().getTitulo();
+        if (cancion.getArtistas() != null) {
+            this.artistas = cancion.getArtistas()
                     .stream()
                     .map(Artista::getNombre)
-            ;
+                    .collect(Collectors.toList());
         }
-        //for(Artista x : song.getArtistas()){ artistas.add(x.getName()); }
     }
 
     private Integer id;
@@ -28,6 +28,8 @@ public class CancionDto {
     private String name;
 
     private Date fecha_subida;
+
+    private Integer duracion;
 
     private String album;
 
@@ -44,6 +46,14 @@ public class CancionDto {
     public Date getDate_added() { return fecha_subida; }
 
     //public void setDate_added(Date date_added) { this.fecha_subida = date_added; }
+
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
+    }
 
     public String getAlbum() {
         return album;

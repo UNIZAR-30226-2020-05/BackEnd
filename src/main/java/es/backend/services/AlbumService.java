@@ -4,12 +4,14 @@ import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
+import es.backend.model.dto.AmigoDto;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AlbumService {
@@ -36,13 +38,14 @@ public class AlbumService {
 
     public Optional<Album> add(Album album, Collection<Cancion> canciones, Integer id_artista){
         album = albumRepository.save(album);
-        List<Artista> artistas = new ArrayList<Artista>();
-        artistas.add(artistaService.getById(id_artista).get());
-        Iterator<Cancion> iterator = canciones.iterator();
-        while(iterator.hasNext()){
-            cancionService.create(iterator.next(), album, artistas);
+        Optional<Artista> artistaOptional = artistaService.getById(id_artista);
+        if (artistaOptional.isPresent()) {
+            Iterator<Cancion> iterator = canciones.iterator();
+            while(iterator.hasNext()){
+                cancionService.create(iterator.next(), album, artistaOptional.get());
+            }
+            album.setArtista(artistaOptional.get());
         }
-        album.setArtista(artistas.get(0));
         return Optional.of(album);
     }
 /*

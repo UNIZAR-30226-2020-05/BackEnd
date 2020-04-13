@@ -2,13 +2,16 @@ package es.backend.model.dto;
 
 import es.backend.model.Usuario;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDto {
+public class UsuarioDto {
 
-    public UserDto(Usuario usuario) {
+    public UsuarioDto(Usuario usuario) {
         this.id = usuario.getId();
+        this.nombre = usuario.getNombre();
+        this.apellidos = usuario.getApellidos();
         this.nick = usuario.getNick();
         this.contrasena = usuario.getContrasena();
         this.tipo_user = usuario.getTipo_user();
@@ -34,13 +37,17 @@ public class UserDto {
 
     private Integer id;
 
+    private String nombre;
+
+    private String apellidos;
+
     private String nick;
 
     private String contrasena;
 
     private Boolean tipo_user;
 
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
 
     private Integer id_ultima_reproduccion;
 
@@ -58,6 +65,22 @@ public class UserDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getNick() {
@@ -84,11 +107,11 @@ public class UserDto {
         this.tipo_user = tipo_user;
     }
 
-    public String getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
