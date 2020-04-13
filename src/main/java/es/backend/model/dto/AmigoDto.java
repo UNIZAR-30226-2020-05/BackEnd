@@ -13,6 +13,8 @@ public class AmigoDto {
     public AmigoDto(Usuario usuario) {
         this.id = usuario.getId();
         this.nick = usuario.getNick();
+        this.nombre = usuario.getNombre();
+        this.apellidos = usuario.getApellidos();
         if (usuario.getId_ultima_reproduccion() != null) {
             this.ultimaCancion = cancionService.getById(usuario.getId_ultima_reproduccion()).get().getNombre();
         }
@@ -21,6 +23,10 @@ public class AmigoDto {
     private Integer id;
 
     private String nick;
+
+    private String nombre;
+
+    private String apellidos;
 
     private String ultimaCancion;
 
@@ -38,6 +44,22 @@ public class AmigoDto {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getUltimaCancion() {
