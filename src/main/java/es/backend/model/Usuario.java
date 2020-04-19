@@ -29,10 +29,10 @@ public class Usuario {
 
     private Integer tipo_ultima_reproduccion;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<ListaCancion> lista_cancion;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Usuario> amigos;
 
     public Integer getId() {
