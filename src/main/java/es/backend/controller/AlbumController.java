@@ -7,7 +7,6 @@ import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.CancionDto;
-import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.AlbumRequest;
 import es.backend.model.request.CancionRequest;
 import es.backend.services.AlbumService;

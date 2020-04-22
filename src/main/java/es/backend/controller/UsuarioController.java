@@ -49,6 +49,7 @@ public class UsuarioController {
 
     @GetMapping(path="/logIn")
     public ResponseEntity getUserLogIn(String nick, String pass) {
+        System.out.println("Parámetros (nick, pass): "+nick+", "+pass);
         Optional<Usuario> userOptional = userService.getLogin(nick, pass);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));

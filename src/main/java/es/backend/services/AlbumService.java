@@ -4,7 +4,6 @@ import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
-import es.backend.model.dto.AmigoDto;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
