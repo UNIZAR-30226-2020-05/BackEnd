@@ -14,11 +14,9 @@ public interface CancionRepository extends JpaRepository<Cancion, Integer> {
     @Query("SELECT c FROM Cancion c WHERE NAME = ?1")
     Optional<Cancion> findByName(String name);
 
-    //Buscar como introducir cadena parcial para buscar en los nombre
     @Query("SELECT c from Cancion c where NOMBRE like '%?1%'")
     Optional<Collection<Cancion>> searchByName(String name);
 
-    //Fallará porque correspondencia Song-Artist es en una tabla diferente de cancion
     @Query("SELECT c from Cancion c where ARTISTA like '%?1%'")
     Optional<Collection<Cancion>> searchByArtist(String name);
 

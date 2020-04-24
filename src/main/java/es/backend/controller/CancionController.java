@@ -27,7 +27,7 @@ public class CancionController {
 
     private Logger log = LoggerFactory.getLogger(CancionController.class);
 
-    /*@GetMapping(path="/getByName")
+    @GetMapping(path="/getByName")
     public ResponseEntity getCancionByName(String name) {
         Optional<Collection<Cancion>> songsOptional = songService.searchByName(name);
         if (songsOptional.isPresent()) {
@@ -51,5 +51,5 @@ public class CancionController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
-    }*/
+    }
 }

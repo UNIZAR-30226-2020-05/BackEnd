@@ -48,9 +48,10 @@ public class ArtistaController {
         }
     }
 
-   /* @GetMapping(path="/getByName")
+    /*
+    @GetMapping(path="/getByName")
     public ResponseEntity getArtistaByName(String name) {
-        Optional<List<Artista>> artistOptional = artistService.getByName(name);
+        Optional<List<Artista>> artistOptional = artistService.searchByName(name);
         if (artistOptional.isPresent()) {
             List<ArtistaDto> listArtistaDto = new LinkedList<>();
             List<Artista> artists = artistOptional.get();

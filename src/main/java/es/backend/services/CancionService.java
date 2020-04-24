@@ -27,20 +27,20 @@ public class CancionService {
 
     public Optional<Cancion> getByName(String name) { return cancionRepository.findByName(name); }
 
-    //public Optional<Collection<Cancion>> searchByName(String name) { return cancionRepository.searchByName(name); }
+    public Optional<Collection<Cancion>> searchByName(String name) { return cancionRepository.searchByName(name); }
 
-    //public Optional<Collection<Cancion>> searchByArtist(String name) { return cancionRepository.searchByArtist(name); }
+    public Optional<Collection<Cancion>> searchByArtist(String name) { return cancionRepository.searchByArtist(name); }
 
-    //public Optional<Collection<Cancion>> searchByAlbum(String name) { return cancionRepository.searchByAlbum(name); }
+    public Optional<Collection<Cancion>> searchByAlbum(String name) { return cancionRepository.searchByAlbum(name); }
 
     public Optional<Collection<Cancion>> getAll() { return Optional.of(cancionRepository.findAll()); }
 
     public void deleteById(Integer id) { cancionRepository.deleteById(id); }
 
-    /*@Transactional
+    @Transactional
     public void deleteByName(String name) {
         Optional<Cancion> c = getByName(name);
-        if(c.isPresent()) cancionRepository.delete(c.get());
-    }*/
+        c.ifPresent(cancion -> cancionRepository.delete(cancion));
+    }
 
 }
