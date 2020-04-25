@@ -28,8 +28,8 @@ public class ListaCancionController {
 
     @PostMapping(path="/create")
     public @ResponseBody ResponseEntity addNewSongList (@RequestBody ListaCancionRequest listaCancionRequest) {
-        Optional<ListaCancion> listaCancionOptional = listaCancionService.create(listaCancionRequest.toEntity(),
-                listaCancionRequest.getId_usuario());
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.createByIdUser(
+                listaCancionRequest.toEntity(), listaCancionRequest.getId_usuario());
         if (listaCancionOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new ListaCancionDto(listaCancionOptional.get()));
         } else {
@@ -52,7 +52,7 @@ public class ListaCancionController {
         Optional<ListaCancion> listaCancionOptional = listaCancionService.addSong(id_SongList, id_song);
         if (listaCancionOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }

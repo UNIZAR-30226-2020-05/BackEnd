@@ -21,8 +21,9 @@ public class UserService {
 
     public Optional<Usuario> create(Usuario usuario) {
         ListaCancion listaCancion = new ListaCancion("Favoritos");
-        usuario = usuarioRepository.save(usuario);
+        usuarioRepository.save(usuario);
         listaCancionService.create(listaCancion, usuario);
+        usuario = usuarioRepository.save(usuario);
         return Optional.of(usuario);
     }
 
@@ -46,7 +47,13 @@ public class UserService {
 
     @Transactional
     public Boolean deleteUser(Integer id) {
-        if (usuarioRepository.findById(id).isPresent()) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            /*List<Usuario> amigos = usuario.get().getAmigos();
+            usuario.get().deleteAmigos();
+            for (Usuario amigo: amigos) {
+                amigo.deleteAmigo(usuario.get());
+            }*/
             usuarioRepository.deleteById(id);
             return true;
         } else {
@@ -63,8 +70,10 @@ public class UserService {
     public Optional<Usuario> addAmigos(Integer id1, Integer id2) {
         Optional<Usuario> user1 = usuarioRepository.findById(id1);
         Optional<Usuario> user2 = usuarioRepository.findById(id2);
-        user1.get().addAmigo(user2.get());
-        user2.get().addAmigo(user1.get());
+        if (user1.isPresent() && user2.isPresent()) {
+            user1.get().addAmigo(user2.get());
+            user2.get().addAmigo(user1.get());
+        }
         return user1;
     }
 

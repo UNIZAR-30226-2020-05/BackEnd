@@ -1,6 +1,7 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +31,21 @@ public class Usuario {
     private Integer tipo_ultima_reproduccion;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<ListaCancion> lista_cancion;
+    private List<ListaCancion> lista_cancion = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Usuario> amigos;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="usuario_amigos",
+            joinColumns=@JoinColumn(name="usuario_id"),
+            inverseJoinColumns=@JoinColumn(name="amigos_id")
+    )
+    private List<Usuario> amigos = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="usuario_amigos",
+            joinColumns=@JoinColumn(name="amigos_id"),
+            inverseJoinColumns=@JoinColumn(name="usuario_id")
+    )
+    private List<Usuario> amigoDe = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -137,9 +149,18 @@ public class Usuario {
 
     public void addAmigo(Usuario usuario) {
         this.amigos.add(usuario);
+        this.amigoDe.add(usuario);
     }
 
     public Integer esAmigo(Usuario usuario) {
         return this.amigos.indexOf(usuario);
+    }
+
+    public List<Usuario> getAmigoDe() {
+        return amigoDe;
+    }
+
+    public void setAmigoDe(List<Usuario> amigoDe) {
+        this.amigoDe = amigoDe;
     }
 }

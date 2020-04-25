@@ -1,7 +1,6 @@
 package es.backend.services;
 
 import es.backend.model.*;
-import es.backend.repository.AlbumRepository;
 import es.backend.repository.ListaCancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,9 +24,13 @@ public class ListaCancionService {
     @Autowired
     private AlbumService albumService;
 
-    public Optional<ListaCancion> create(ListaCancion listaCancion, Integer idUser) {
-        listaCancion.setUsuario(userService.getById(idUser).get());
-        return Optional.of(listaCancionRepository.save(listaCancion));
+    public Optional<ListaCancion> createByIdUser(ListaCancion listaCancion, Integer idUser) {
+        Optional<Usuario> usuario = userService.getById(idUser);
+        if (usuario.isPresent()) {
+            listaCancion.setUsuario(usuario.get());
+            return Optional.of(listaCancionRepository.save(listaCancion));
+        }
+        return Optional.empty();
     }
 
     public Optional<ListaCancion> create(ListaCancion listaCancion, Usuario usuario) {
