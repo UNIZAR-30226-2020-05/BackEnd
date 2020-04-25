@@ -67,7 +67,16 @@ public class UserService {
         Optional<Usuario> user2 = usuarioRepository.findById(id2);
         if (user1.isPresent() && user2.isPresent()) {
             user1.get().addAmigo(user2.get());
-            user2.get().addAmigo(user1.get());
+        }
+        return user1;
+    }
+
+    @Transactional
+    public Optional<Usuario> deleteAmigos(Integer id1, Integer id2) {
+        Optional<Usuario> user1 = usuarioRepository.findById(id1);
+        Optional<Usuario> user2 = usuarioRepository.findById(id2);
+        if (user1.isPresent() && user2.isPresent()) {
+            user1.get().deleteAmigo(user2.get());
         }
         return user1;
     }

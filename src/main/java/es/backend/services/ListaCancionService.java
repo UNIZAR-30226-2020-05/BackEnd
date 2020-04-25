@@ -46,12 +46,8 @@ public class ListaCancionService {
     public Optional<ListaCancion> addSong(Integer id_lista, Integer id_cancion) {
         Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
-        System.out.println("Lista:" + optionalListaCancion.get().getCanciones().stream().map(Cancion::getNombre)
-                .collect(Collectors.toList()));
-        //System.out.println(optionalCancion.get().getNombre());
         if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
             optionalListaCancion.get().addCancion(optionalCancion.get());
-            optionalCancion.get().addCancionALista(optionalListaCancion.get());
             return optionalListaCancion;
         } else {
             return optionalListaCancion;
@@ -91,7 +87,6 @@ public class ListaCancionService {
 
         if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
             optionalListaCancion.get().deleteCancion(optionalCancion.get());
-            optionalCancion.get().deleteCancionALista(optionalListaCancion.get());
             return optionalListaCancion;
         } else {
             return optionalListaCancion;

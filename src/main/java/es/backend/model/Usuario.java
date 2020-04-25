@@ -152,6 +152,11 @@ public class Usuario {
         this.amigoDe.add(usuario);
     }
 
+    public void deleteAmigo(Usuario usuario) {
+        this.amigos.remove(usuario);
+        this.amigoDe.remove(usuario);
+    }
+
     public Integer esAmigo(Usuario usuario) {
         return this.amigos.indexOf(usuario);
     }
