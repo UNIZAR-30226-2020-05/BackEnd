@@ -3,14 +3,12 @@ package es.backend.services;
 import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
-import es.backend.model.ListaCancion;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class AlbumService {
