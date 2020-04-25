@@ -42,20 +42,23 @@ public class ListaCancionService {
         return listaCancionRepository.findById(id);
     }
 
+    @Transactional
     public Optional<ListaCancion> addSong(Integer id_lista, Integer id_cancion) {
         Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
         System.out.println("Lista:" + optionalListaCancion.get().getCanciones().stream().map(Cancion::getNombre)
                 .collect(Collectors.toList()));
-        System.out.println(optionalCancion.get().getNombre());
+        //System.out.println(optionalCancion.get().getNombre());
         if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
             optionalListaCancion.get().addCancion(optionalCancion.get());
+            optionalCancion.get().addCancionALista(optionalListaCancion.get());
             return optionalListaCancion;
         } else {
             return optionalListaCancion;
         }
     }
 
+    @Transactional
     public boolean addAlbum(Integer id_lista, Integer id_album) {
         Optional<Album> optionalAlbum= albumService.getById(id_album);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
@@ -79,5 +82,19 @@ public class ListaCancionService {
             return false;
         }
 
+    }
+
+    @Transactional
+    public Optional<ListaCancion> deleteCancionDeLista(Integer id_lista, Integer id_cancion) {
+        Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
+        Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
+
+        if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
+            optionalListaCancion.get().deleteCancion(optionalCancion.get());
+            optionalCancion.get().deleteCancionALista(optionalListaCancion.get());
+            return optionalListaCancion;
+        } else {
+            return optionalListaCancion;
+        }
     }
 }

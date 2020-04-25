@@ -74,4 +74,15 @@ public class ListaCancionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+
+    @PatchMapping(path="/deleteSong/{id_SongList}")
+    public ResponseEntity deleteSongToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_song) {
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.deleteCancionDeLista(id_SongList, id_song);
+        if (listaCancionOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
 }

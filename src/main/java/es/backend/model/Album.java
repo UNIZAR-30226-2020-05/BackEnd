@@ -17,7 +17,7 @@ public class Album {
     @ManyToOne
     private Artista artista;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private List<Cancion> canciones;
 
     public Integer getId() {

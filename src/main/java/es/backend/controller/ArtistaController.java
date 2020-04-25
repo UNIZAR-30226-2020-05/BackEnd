@@ -48,6 +48,15 @@ public class ArtistaController {
         }
     }
 
+    @DeleteMapping(path="/delete/{id}")
+    public ResponseEntity deleteArtista(@PathVariable Integer id) {
+        if (artistService.deleteArtista(id)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
     /*
     @GetMapping(path="/getByName")
     public ResponseEntity getArtistaByName(String name) {

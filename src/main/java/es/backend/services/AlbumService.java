@@ -35,19 +35,20 @@ public class AlbumService {
         return albumRepository.findByArtista(artistaService.getById(id_artista).get());
     }
 
-    public Optional<Album> add(Album album, Collection<Cancion> canciones, Integer id_artista){
-        album = albumRepository.save(album);
+    public Optional<Album> create(Album album, List<Cancion> canciones, Integer id_artista){
         Optional<Artista> artistaOptional = artistaService.getById(id_artista);
         if (artistaOptional.isPresent()) {
+            album = albumRepository.save(album);
             Iterator<Cancion> iterator = canciones.iterator();
             while(iterator.hasNext()){
                 cancionService.create(iterator.next(), album, artistaOptional.get());
             }
             album.setArtista(artistaOptional.get());
+            return Optional.of(album);
         }
-        return Optional.of(album);
+        return Optional.empty();
     }
-/*
+
     @Transactional
     public Boolean deleteAlbum(Integer id) {
         if (albumRepository.findById(id).isPresent()) {
@@ -57,5 +58,5 @@ public class AlbumService {
             return false;
         }
     }
-*/
+
 }

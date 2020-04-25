@@ -49,11 +49,6 @@ public class UserService {
     public Boolean deleteUser(Integer id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if (usuario.isPresent()) {
-            /*List<Usuario> amigos = usuario.get().getAmigos();
-            usuario.get().deleteAmigos();
-            for (Usuario amigo: amigos) {
-                amigo.deleteAmigo(usuario.get());
-            }*/
             usuarioRepository.deleteById(id);
             return true;
         } else {

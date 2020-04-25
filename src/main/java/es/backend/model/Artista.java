@@ -17,10 +17,14 @@ public class Artista {
     //Nombre de la imagen del artista
     private String imagen;
 
-    @OneToMany(mappedBy = "artista")
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL)
     private List<Album> albumes;
 
-    @ManyToMany(mappedBy = "artistas")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="cancion_artistas",
+            joinColumns=@JoinColumn(name="artistas_id"),
+            inverseJoinColumns=@JoinColumn(name="canciones_id")
+    )
     private List<Cancion> canciones;
 
     public Integer getId() { return id; }

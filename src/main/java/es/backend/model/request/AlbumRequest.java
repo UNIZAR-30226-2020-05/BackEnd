@@ -2,6 +2,8 @@ package es.backend.model.request;
 
 import es.backend.model.Album;
 
+import java.util.ArrayList;
+
 public class AlbumRequest {
 
     private Integer id_artista;

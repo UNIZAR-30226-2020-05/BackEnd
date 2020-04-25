@@ -21,8 +21,18 @@ public class Cancion {
     @ManyToOne
     private Album album;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="cancion_artistas",
+            joinColumns=@JoinColumn(name="canciones_id"),
+            inverseJoinColumns=@JoinColumn(name="artistas_id")
+    )
     private List<Artista> artistas = new ArrayList();
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "lista_cancion_canciones",
+            joinColumns = { @JoinColumn(name = "cancion_id") },
+            inverseJoinColumns = { @JoinColumn(name = "lista_cancion_id") })
+    private List<ListaCancion> cancionDeListas = new ArrayList<ListaCancion>();
 
     public Integer getId() { return id; }
 
@@ -53,11 +63,28 @@ public class Cancion {
     public void setArtistas(List<Artista> as) { this.artistas = as; }
 
     public void addArtista(Artista a) {
-        System.out.println(a.getId());
-        System.out.println(a.getNombre());
         this.artistas.add(a);
     }
 
     public void removeArtista(Artista a) { this.artistas.remove(a); }
 
+    public List<ListaCancion> getCancionDeListas() {
+        return cancionDeListas;
+    }
+
+    public void setCancionDeListas(List<ListaCancion> cancionDeListas) {
+        this.cancionDeListas = cancionDeListas;
+    }
+
+    public void addCancionALista(ListaCancion listaCancion) {
+        this.cancionDeListas.add(listaCancion);
+    }
+
+    public boolean deleteCancionALista(ListaCancion listaCancion) {
+        if (this.cancionDeListas.contains(listaCancion)) {
+            this.cancionDeListas.add(listaCancion);
+            return true;
+        }
+        return false;
+    }
 }

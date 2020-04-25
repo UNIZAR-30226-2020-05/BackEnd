@@ -16,7 +16,7 @@ public class ListaCancion {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "lista_cancion_canciones",
             joinColumns = { @JoinColumn(name = "lista_cancion_id") },
             inverseJoinColumns = { @JoinColumn(name = "cancion_id") })

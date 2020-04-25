@@ -69,7 +69,7 @@ public class AlbumController {
         for (CancionRequest cancionRequest : albumRequest.getCanciones()) {
             canciones.add(cancionRequest.toEntity());
         }
-        Optional<Album> albumOptional = albumService.add(albumRequest.toEntity(), canciones, albumRequest.getId_artista());
+        Optional<Album> albumOptional = albumService.create(albumRequest.toEntity(), canciones, albumRequest.getId_artista());
         if(albumOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(new AlbumDto(albumOptional.get()));
         } else {
@@ -77,7 +77,7 @@ public class AlbumController {
         }
     }
 
-    /*@DeleteMapping(path="/delete/{id}")
+    @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteAlbum(@PathVariable Integer id) {
         if (albumService.deleteAlbum(id)) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
@@ -85,5 +85,4 @@ public class AlbumController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
-    */
 }
