@@ -57,19 +57,14 @@ public class ArtistaController {
         }
     }
 
-    /*
+
     @GetMapping(path="/getByName")
     public ResponseEntity getArtistaByName(String name) {
-        Optional<List<Artista>> artistOptional = artistService.searchByName(name);
-        if (artistOptional.isPresent()) {
-            List<ArtistaDto> listArtistaDto = new LinkedList<>();
-            List<Artista> artists = artistOptional.get();
-            for (int i = 0; i < artists.size(); i++) {
-                listArtistaDto.add(new ArtistaDto(artists.get(i)));
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(listArtistaDto);
+        Optional<Artista> artistOptional = artistService.getByName(name);
+        if(artistOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ArtistaDto(artistOptional.get()));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
-    }*/
+    }
 }
