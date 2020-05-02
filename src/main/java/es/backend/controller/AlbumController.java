@@ -37,8 +37,14 @@ public class AlbumController {
     private Logger log = LoggerFactory.getLogger(AlbumController.class);
 
     @GetMapping(path="/get")
-    public ResponseEntity getAlbumById(Integer id) {
-        Optional<Album> albumOptional = albumService.getById(id);
+    public ResponseEntity getAlbumById(String id) {
+        Integer idAlbum = 0;
+        try {
+            idAlbum = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensaje del servidor: " + e);
+        }
+        Optional<Album> albumOptional = albumService.getById(idAlbum);
         if (albumOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new AlbumDto(albumOptional.get()));
         } else {
@@ -46,24 +52,30 @@ public class AlbumController {
         }
     }
 
-    @GetMapping(path="/getByName")
-    public ResponseEntity<Collection<AlbumDto>> getAlbumByTitulo_album(String nameAlbum) {
-        return ResponseEntity.status(HttpStatus.OK).body(albumService.getByTitulo_album(nameAlbum)
+    @GetMapping(path="/getByTitulo")
+    public ResponseEntity<List<AlbumDto>> getAlbumByTitulo(String titulo) {
+        return ResponseEntity.status(HttpStatus.OK).body(albumService.searchByTitulo(titulo)
                 .stream()
                 .map(AlbumDto::new)
                 .collect(Collectors.toList()));
     }
 
     @GetMapping(path="/getByArtist")
-    public ResponseEntity<Collection<AlbumDto>> getAlbumByTitulo_album(Integer id_artista) {
-        return ResponseEntity.status(HttpStatus.OK).body(albumService.getByArtista(id_artista)
+    public ResponseEntity<Collection<AlbumDto>> getAlbumByIdArtista(String id_artista) {
+        Integer idArtista = 0;
+        try {
+            idArtista = Integer.parseInt(id_artista);
+        } catch (NumberFormatException e) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensaje del servidor: " + e);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(albumService.getByArtista(idArtista)
                 .stream()
                 .map(AlbumDto::new)
                 .collect(Collectors.toList()));
     }
 
     @PostMapping(path="/add")
-    public @ResponseBody ResponseEntity add (@RequestBody AlbumRequest albumRequest) throws JsonProcessingException {
+    public @ResponseBody ResponseEntity add(@RequestBody AlbumRequest albumRequest) throws JsonProcessingException {
 
         List<Cancion> canciones = new ArrayList<>();
         for (CancionRequest cancionRequest : albumRequest.getCanciones()) {

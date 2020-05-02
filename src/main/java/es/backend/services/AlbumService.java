@@ -1,5 +1,6 @@
 package es.backend.services;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
@@ -25,23 +26,28 @@ public class AlbumService {
         return albumRepository.findById(id);
     }
 
-    public List<Album> getByTitulo_album(String titulo_album) {
-        return albumRepository.findByTitulo(titulo_album);
+    public List<Album> searchByTitulo(String titulo) {
+        return albumRepository.searchByTitulo(titulo);
     }
 
     public List<Album> getByArtista(Integer id_artista) {
-        return albumRepository.findByArtista(artistaService.getById(id_artista).get());
+        Optional<Artista> artistaOptional = artistaService.getById(id_artista);
+        if (artistaOptional.isPresent()) {
+            return artistaOptional.get().getAlbumes();
+        }
+        return new ArrayList<>();
     }
 
     public Optional<Album> create(Album album, List<Cancion> canciones, Integer id_artista){
         Optional<Artista> artistaOptional = artistaService.getById(id_artista);
         if (artistaOptional.isPresent()) {
+            album.setArtista(artistaOptional.get());
             album = albumRepository.save(album);
             Iterator<Cancion> iterator = canciones.iterator();
             while(iterator.hasNext()){
                 cancionService.create(iterator.next(), album, artistaOptional.get());
             }
-            album.setArtista(artistaOptional.get());
+            album.setArtista(artistaOptional.get()); //
             return Optional.of(album);
         }
         return Optional.empty();

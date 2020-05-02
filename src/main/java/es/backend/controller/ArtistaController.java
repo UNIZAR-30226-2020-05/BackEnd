@@ -1,6 +1,8 @@
 package es.backend.controller;
 
+import es.backend.model.Album;
 import es.backend.model.Artista;
+import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.ArtistaDto;
 import es.backend.model.request.ArtistaRequest;
 import es.backend.services.ArtistaService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller("ArtistaController")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
@@ -39,8 +42,14 @@ public class ArtistaController {
     }
 
     @GetMapping(path="/get")
-    public ResponseEntity getArtistaById(Integer id) {
-        Optional<Artista> artistOptional = artistService.getById(id);
+    public ResponseEntity getArtistaById(String id) {
+        Integer idArtista = 0;
+        try {
+            idArtista = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensaje del servidor: " + e);
+        }
+        Optional<Artista> artistOptional = artistService.getById(idArtista);
         if (artistOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new ArtistaDto(artistOptional.get()));
         } else {
@@ -59,12 +68,10 @@ public class ArtistaController {
 
 
     @GetMapping(path="/getByName")
-    public ResponseEntity getArtistaByName(String name) {
-        Optional<Artista> artistOptional = artistService.getByName(name);
-        if(artistOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new ArtistaDto(artistOptional.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
-        }
+    public ResponseEntity<List<ArtistaDto>> getArtistaByName(String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(artistService.getByName(name)
+                .stream()
+                .map(ArtistaDto::new)
+                .collect(Collectors.toList()));
     }
 }

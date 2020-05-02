@@ -25,7 +25,7 @@ public class ArtistaService {
 
     public Optional<Artista> getById(Integer id) { return artistaRepository.findById(id); }
 
-    public Optional<Artista> getByName(String name) { return artistaRepository.findByNombre(name); }
+    public List<Artista> getByName(String name) { return artistaRepository.searchByNombre(name); }
 
     @Transactional
     public Boolean deleteArtista(Integer id) {
