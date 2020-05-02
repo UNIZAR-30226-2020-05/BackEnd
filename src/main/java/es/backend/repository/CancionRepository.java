@@ -14,10 +14,10 @@ public interface CancionRepository extends JpaRepository<Cancion, Integer> {
     @Query("SELECT c FROM Cancion c WHERE NAME = ?1")
     Optional<Cancion> findByName(String name);
 
-    @Query("SELECT c from Cancion c where NOMBRE like '%?1%'")
+    @Query("SELECT c from Cancion c where NOMBRE like %?1%")
     Optional<Collection<Cancion>> searchByName(String name);
 
-    @Query("SELECT c from Cancion c where ARTISTA like '%?1%'")
+    @Query("SELECT c from Cancion c where ARTISTA like %?1%")
     Optional<Collection<Cancion>> searchByArtist(String name);
 
     @Query("SELECT c FROM Cancion c WHERE ALBUM = ?1")
