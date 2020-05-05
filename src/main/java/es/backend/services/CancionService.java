@@ -6,20 +6,21 @@ import es.backend.model.Cancion;
 import es.backend.repository.CancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import javax.sound.sampled.AudioInputStream;
 import java.io.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CancionService {
     @Autowired
     private CancionRepository cancionRepository;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     public Optional<Cancion> create(Cancion cancion, Album album, Artista artista) {
         cancion.setAlbum(album);
@@ -48,9 +49,10 @@ public class CancionService {
     }
 
     public Optional<InputStreamResource> buscarCancion(String nombre) {
+        Resource resource = resourceLoader.getResource(
+                "classpath:music/" + nombre + ".mp3");
         try {
-            return Optional.of(new InputStreamResource(new FileInputStream(
-                    new File("src/main/resources/music/" + nombre + ".mp3"))));
+            return Optional.of(new InputStreamResource(resource.getInputStream()));
         } catch (IOException e) {
             return Optional.empty();
         }
