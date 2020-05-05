@@ -5,9 +5,13 @@ import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.repository.CancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.sound.sampled.AudioInputStream;
+import java.io.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +45,15 @@ public class CancionService {
     public void deleteByName(String name) {
         Optional<Cancion> c = getByName(name);
         c.ifPresent(cancion -> cancionRepository.delete(cancion));
+    }
+
+    public Optional<InputStreamResource> buscarCancion(String nombre) {
+        try {
+            return Optional.of(new InputStreamResource(new FileInputStream(
+                    new File("src/main/resources/music/" + nombre + ".mp3"))));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
     }
 
 }
