@@ -7,13 +7,23 @@ import es.backend.services.CancionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.ServletContextResource;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Controller("CancionController")
@@ -48,6 +58,17 @@ public class CancionController {
                     .stream()
                     .map(CancionDto::new)
                     .collect(Collectors.toList()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @GetMapping(value = "/play/{nombre}", produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity playAudio(@PathVariable String nombre) {
+        Optional<InputStreamResource> inputOptional = songService.buscarCancion(nombre);
+        if (inputOptional.isPresent()) {
+            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
