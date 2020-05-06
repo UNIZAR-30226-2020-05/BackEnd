@@ -127,6 +127,12 @@ public class Usuario {
         this.tipo_ultima_reproduccion = tipo_ultima_reproduccion;
     }
 
+    public void setLastPlay(Integer id_play, Integer minuto_play, Integer tipo_play) {
+        setId_ultima_reproduccion(id_play);
+        setMinuto_ultima_reproduccion(minuto_play);
+        setTipo_ultima_reproduccion(tipo_play);
+    }
+
     public List<ListaCancion> getLista_cancion() {
         return lista_cancion;
     }

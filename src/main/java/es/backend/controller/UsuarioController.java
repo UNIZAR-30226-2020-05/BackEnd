@@ -103,4 +103,15 @@ public class UsuarioController {
                 .map(UsuarioDto::new)
                 .collect(Collectors.toList()));
     }
+
+    @PatchMapping(path="/modifyLastPlay/{id}")
+    public ResponseEntity modifyLastPlay(@PathVariable Integer id, @RequestBody Integer id_play,
+                                         @RequestBody Integer minuto_play, @RequestBody Integer tipo_play) {
+        Optional<Usuario> userOptional = userService.modifyLastPlay(id, id_play, minuto_play, tipo_play);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
 }
