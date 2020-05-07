@@ -85,4 +85,15 @@ public class UserService {
         return usuarioRepository.findAll();
     }
 
+    public Optional<Usuario> modifyLastPlay(Integer id, Integer id_play, Integer minuto_play, Integer tipo_play) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+            usuario.setLastPlay(id_play, minuto_play, tipo_play);
+            return Optional.of(usuarioRepository.save(usuario));
+        } else {
+            return Optional.empty();
+        }
+    }
+
 }
