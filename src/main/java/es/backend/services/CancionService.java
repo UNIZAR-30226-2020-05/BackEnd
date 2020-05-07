@@ -10,12 +10,20 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Optional;
 
 @Service
 public class CancionService {
+
+    private final Path music = Paths.get("music");
+
     @Autowired
     private CancionRepository cancionRepository;
 
@@ -56,6 +64,19 @@ public class CancionService {
                     new FileInputStream(resource.getFile())));
         } catch (IOException e) {
             return Optional.empty();
+        }
+    }
+
+    public boolean guardarCancion(MultipartFile file, String nombre) {
+        try {
+            if (!Files.exists(music)) {
+                Files.createDirectory(music);
+            }
+            Files.copy(file.getInputStream(), this.music.resolve(nombre + ".mp3"));
+            return true;
+        } catch (IOException e) {
+            System.out.println(e);
+            return false;
         }
     }
 

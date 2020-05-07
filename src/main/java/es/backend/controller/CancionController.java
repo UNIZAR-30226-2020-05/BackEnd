@@ -1,7 +1,10 @@
 package es.backend.controller;
 
 import es.backend.model.Cancion;
+import es.backend.model.Usuario;
 import es.backend.model.dto.CancionDto;
+import es.backend.model.dto.UsuarioDto;
+import es.backend.model.request.UsuarioRequest;
 import es.backend.services.CancionService;
 
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.support.ServletContextResource;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.ServletContext;
@@ -69,6 +73,17 @@ public class CancionController {
         Optional<InputStreamResource> inputOptional = songService.buscarCancion(nombre);
         if (inputOptional.isPresent()) {
             return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @PostMapping(path="/upload")
+    public @ResponseBody ResponseEntity upload (@RequestParam("file") MultipartFile file,
+                                                @RequestParam("nombre") String nombre) {
+        boolean guardado = songService.guardarCancion(file, nombre);
+        if (guardado) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
