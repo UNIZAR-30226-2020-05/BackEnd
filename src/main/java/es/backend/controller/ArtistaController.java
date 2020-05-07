@@ -87,16 +87,9 @@ public class ArtistaController {
 
     @GetMapping(path="/getByName")
     public ResponseEntity getArtistaByName(String name) {
-        Optional<Collection<Artista>> artistasOpt = artistService.getByName(name);
-        if(artistasOpt.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(artistasOpt.get()
-                    .stream()
-                    .map(ArtistaDto::new)
-                    .collect(Collectors.toList()));
-
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(artistService.getByName(name).get()
+                .stream()
+                .map(ArtistaDto::new)
+                .collect(Collectors.toList()));
     }
 }
