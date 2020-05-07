@@ -26,7 +26,7 @@ public class ListaCancionDto {
 
     private String nombre;
 
-    private List<CancionDto> canciones = new ArrayList();
+    private List<CancionDto> canciones;
 
     public Integer getId() {
         return id;
