@@ -4,6 +4,7 @@ import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.ArtistaDto;
+import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.ArtistaRequest;
 import es.backend.services.ArtistaService;
 
@@ -86,8 +87,8 @@ public class ArtistaController {
 
 
     @GetMapping(path="/getByName")
-    public ResponseEntity getArtistaByName(String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(artistService.getByName(name).get()
+    public ResponseEntity<Collection<ArtistaDto>> getArtistaByName (String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(artistService.getByName(name)
                 .stream()
                 .map(ArtistaDto::new)
                 .collect(Collectors.toList()));

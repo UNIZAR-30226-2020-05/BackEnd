@@ -30,7 +30,7 @@ public class ArtistaService {
 
     public Optional<Artista> getById(Integer id) { return artistaRepository.findById(id); }
 
-    public Optional<Collection<Artista>> getByName(String name) { return artistaRepository.searchByNombre(name); }
+    public List<Artista> getByName(String name) { return artistaRepository.searchByNombre(name); }
 
     @Transactional
     public Boolean deleteArtista(Integer id) {
