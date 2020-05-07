@@ -15,7 +15,7 @@ public interface ArtistaRepository extends JpaRepository<Artista, Integer> {
     Optional<Collection<Artista>> searchByCancion(String song);
 
     @Query("SELECT a FROM Artista a WHERE a.nombre like %?1%")
-    List<Artista> searchByNombre(String name);
+    Optional<Collection<Artista>> searchByNombre(String name);
 
     Optional<Artista> findByNombre(String name);
 

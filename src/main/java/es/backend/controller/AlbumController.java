@@ -11,10 +11,13 @@ import es.backend.model.request.AlbumRequest;
 import es.backend.model.request.CancionRequest;
 import es.backend.services.AlbumService;
 import es.backend.services.ArtistaService;
+import es.backend.services.ImagenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,9 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
+    @Autowired
+    private ImagenService imagenService;
+
     private Logger log = LoggerFactory.getLogger(AlbumController.class);
 
     @GetMapping(path="/get")
@@ -47,6 +53,17 @@ public class AlbumController {
         Optional<Album> albumOptional = albumService.getById(idAlbum);
         if (albumOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new AlbumDto(albumOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @GetMapping(value = "/getImg", produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity getFotoAlbum(String nombreAlbum) {
+        Optional<InputStreamResource> inputOptional = imagenService.getFotoAlbum(nombreAlbum);
+        if (inputOptional.isPresent()) {
+            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
