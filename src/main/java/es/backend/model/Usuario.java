@@ -30,6 +30,8 @@ public class Usuario {
 
     private Integer tipo_ultima_reproduccion;
 
+    private String nombre_avatar;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<ListaCancion> lista_cancion = new ArrayList<>();
 

@@ -4,17 +4,22 @@ import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.dto.AlbumDto;
 import es.backend.model.dto.ArtistaDto;
+import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.ArtistaRequest;
 import es.backend.services.ArtistaService;
 
+import es.backend.services.ImagenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +33,9 @@ public class ArtistaController {
 
     @Autowired
     private ArtistaService artistService;
+
+    @Autowired
+    private ImagenService imagenService;
 
     private Logger log = LoggerFactory.getLogger(ArtistaController.class);
 
@@ -57,6 +65,17 @@ public class ArtistaController {
         }
     }
 
+    @GetMapping(value = "/getImg", produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity getFotoArtista(String nombreArtista) {
+        Optional<InputStreamResource> inputOptional = imagenService.getFotoArtista(nombreArtista);
+        if (inputOptional.isPresent()) {
+            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteArtista(@PathVariable Integer id) {
         if (artistService.deleteArtista(id)) {
@@ -68,7 +87,7 @@ public class ArtistaController {
 
 
     @GetMapping(path="/getByName")
-    public ResponseEntity<List<ArtistaDto>> getArtistaByName(String name) {
+    public ResponseEntity<Collection<ArtistaDto>> getArtistaByName (String name) {
         return ResponseEntity.status(HttpStatus.OK).body(artistService.getByName(name)
                 .stream()
                 .map(ArtistaDto::new)

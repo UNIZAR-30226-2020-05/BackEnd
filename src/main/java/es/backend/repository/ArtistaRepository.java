@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ArtistaRepository extends JpaRepository<Artista, Integer> {
 
-    @Query("SELECT c.artistas FROM Cancion c where nombre = ?1")
+    @Query("SELECT c.artistas FROM Cancion c where c.nombre = ?1")
     Optional<Collection<Artista>> searchByCancion(String song);
 
     @Query("SELECT a FROM Artista a WHERE a.nombre like %?1%")

@@ -3,11 +3,14 @@ package es.backend.controller;
 import es.backend.model.Usuario;
 import es.backend.model.request.UsuarioRequest;
 import es.backend.model.dto.UsuarioDto;
+import es.backend.services.ImagenService;
 import es.backend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,9 @@ public class UsuarioController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImagenService imagenService;
 
     private Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
@@ -42,6 +48,17 @@ public class UsuarioController {
         Optional<Usuario> userOptional = userService.getByNick(nick);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
+    @GetMapping(value = "/getImg", produces = {
+            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    public ResponseEntity getAvatarUser(String nombreAvatar) {
+        Optional<InputStreamResource> inputOptional = imagenService.getAvatar(nombreAvatar);
+        if (inputOptional.isPresent()) {
+            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
