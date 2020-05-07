@@ -50,9 +50,10 @@ public class CancionService {
 
     public Optional<InputStreamResource> buscarCancion(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "classpath:music/" + nombre + ".mp3");
+                "file:music/" + nombre + ".mp3");
         try {
-            return Optional.of(new InputStreamResource(resource.getInputStream()));
+            return Optional.of(new InputStreamResource(
+                    new FileInputStream(resource.getFile())));
         } catch (IOException e) {
             return Optional.empty();
         }
