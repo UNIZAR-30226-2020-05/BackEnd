@@ -122,9 +122,19 @@ public class UsuarioController {
     }
 
     @PatchMapping(path="/modifyLastPlay/{id}")
-    public ResponseEntity modifyLastPlay(@PathVariable Integer id, @RequestBody Integer id_play,
-                                         @RequestBody Integer minuto_play, @RequestBody Integer tipo_play) {
-        Optional<Usuario> userOptional = userService.modifyLastPlay(id, id_play, minuto_play, tipo_play);
+    public ResponseEntity modifyLastPlay(@PathVariable Integer id, @RequestParam String id_play,
+                                         @RequestParam String minuto_play, @RequestParam String tipo_play) {
+        Integer idPlay = 0;
+        Integer minutoPlay = 0;
+        Integer tipoPlay = 0;
+        try {
+            idPlay = Integer.parseInt(id_play);
+            minutoPlay = Integer.parseInt(minuto_play);
+            tipoPlay = Integer.parseInt(tipo_play);
+        } catch (NumberFormatException e) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensaje del servidor: " + e);
+        }
+        Optional<Usuario> userOptional = userService.modifyLastPlay(id, idPlay, minutoPlay, tipoPlay);
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
         } else {
