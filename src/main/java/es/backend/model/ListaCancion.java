@@ -42,7 +42,7 @@ public class ListaCancion {
 
     public List<Cancion> getCanciones(){ return canciones; }
 
-    public void addCancion(Cancion cancion){ System.out.println(canciones.add(cancion)); }
+    public void addCancion(Cancion cancion){ canciones.add(cancion); }
 
     public void deleteCancion(Cancion cancion){ canciones.remove(cancion); }
 }

@@ -54,6 +54,7 @@ public class CancionController {
         }
     }
 
+    //NO FUNCIONA -- NO TIENE SENTIDO SU USO
     @GetMapping(path="/getByArtist")
     public ResponseEntity getCancionByArtist(String name) {
         Optional<Collection<Cancion>> songsOptional = songService.searchByArtist(name);

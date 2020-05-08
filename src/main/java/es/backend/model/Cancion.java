@@ -30,8 +30,8 @@ public class Cancion {
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "lista_cancion_canciones",
-            joinColumns = { @JoinColumn(name = "cancion_id") },
-            inverseJoinColumns = { @JoinColumn(name = "lista_cancion_id") })
+            joinColumns = @JoinColumn(name = "cancion_id"),
+            inverseJoinColumns = @JoinColumn(name = "lista_cancion_id"))
     private List<ListaCancion> cancionDeListas = new ArrayList<ListaCancion>();
 
     public Integer getId() { return id; }
