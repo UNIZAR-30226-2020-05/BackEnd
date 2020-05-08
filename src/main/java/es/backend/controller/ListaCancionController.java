@@ -1,5 +1,6 @@
 package es.backend.controller;
 
+import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
 import es.backend.model.dto.ListaCancionDto;
 import es.backend.model.dto.UsuarioDto;

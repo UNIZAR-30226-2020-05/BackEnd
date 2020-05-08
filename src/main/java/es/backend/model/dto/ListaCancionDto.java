@@ -2,7 +2,6 @@ package es.backend.model.dto;
 
 import es.backend.model.ListaCancion;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,7 @@ public class ListaCancionDto {
 
     private String nombre;
 
-    private List<CancionDto> canciones = new ArrayList();
+    private List<CancionDto> canciones;
 
     public Integer getId() {
         return id;
@@ -50,5 +49,13 @@ public class ListaCancionDto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<CancionDto> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(List<CancionDto> canciones) {
+        this.canciones = canciones;
     }
 }
