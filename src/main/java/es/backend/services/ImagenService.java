@@ -5,11 +5,13 @@ import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StreamUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,16 +33,10 @@ public class ImagenService {
 
     //FALTA ELIMINAR FOTO DE ALBUM Y ARTISTA
 
-    public Optional<InputStreamResource> getAvatar(String nombre) {
-        Resource resource = resourceLoader.getResource(
-                "file:imagenes/avatares/" + nombre + ".jpg");
-        try {
-            return Optional.of(new InputStreamResource(
-                    new FileInputStream(resource.getFile())));
-        } catch (IOException e) {
-            System.out.println(e);
-            return Optional.empty();
-        }
+    public Optional<byte[]> getAvatar(String nombre) throws IOException {
+        ClassPathResource imgFile = new ClassPathResource("file:imagenes/avatares/"+nombre+".jpeg");
+        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+        return Optional.of(bytes);
     }
 
     public Optional<InputStreamResource> getFotoAlbum(String nombre) {

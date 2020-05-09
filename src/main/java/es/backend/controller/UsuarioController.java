@@ -8,6 +8,7 @@ import es.backend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,8 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller("UserController")
@@ -55,16 +57,19 @@ public class UsuarioController {
 
     @GetMapping(value = "/getImg",
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity getAvatarUser(String nombreAvatar) {
-        Optional<InputStreamResource> inputOptional = imagenService.getAvatar(nombreAvatar);
-        if (inputOptional.isPresent()) {
+    public ResponseEntity getAvatarUser(String nombreAvatar) throws IOException {
+        Optional<byte[]> img = imagenService.getAvatar(nombreAvatar);
+        if (img.isPresent()) {
             System.out.println("Fotele de locos");
-            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
+            //String encodeImg = Base64.getEncoder().withoutPadding().encodeToString(img.get());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(img.get());
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-
+    
     @GetMapping(path="/logIn")
     public ResponseEntity getUserLogIn(String nick, String pass) {
         Optional<Usuario> userOptional = userService.getLogin(nick, pass);

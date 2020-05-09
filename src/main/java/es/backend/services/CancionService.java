@@ -63,6 +63,7 @@ public class CancionService {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
         } catch (IOException e) {
+            System.out.println(e);
             return Optional.empty();
         }
     }
