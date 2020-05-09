@@ -18,6 +18,8 @@ public class UsuarioRequest {
 
     private Date fecha_nacimiento;
 
+    private String nombre_avatar;
+
     public String getNombre() {
         return nombre;
     }
@@ -66,6 +68,14 @@ public class UsuarioRequest {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public String getNombre_avatar() {
+        return nombre_avatar;
+    }
+
+    public void setNombre_avatar(String nombre_avatar) {
+        this.nombre_avatar = nombre_avatar;
+    }
+
     public Usuario toEntity() {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
@@ -74,7 +84,7 @@ public class UsuarioRequest {
         usuario.setContrasena(contrasena);
         usuario.setTipo_user(tipo_user);
         usuario.setFecha_nacimiento(fecha_nacimiento);
+        usuario.setNombre_avatar(nombre_avatar);
         return usuario;
     }
-
 }
