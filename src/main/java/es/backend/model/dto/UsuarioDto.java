@@ -16,6 +16,7 @@ public class UsuarioDto {
         this.contrasena = usuario.getContrasena();
         this.tipo_user = usuario.getTipo_user();
         this.fecha_nacimiento = usuario.getFecha_nacimiento();
+        this.nombre_avatar = usuario.getNombre_avatar();
         this.id_ultima_reproduccion = usuario.getId_ultima_reproduccion();
         this.minuto_ultima_reproduccion = usuario.getMinuto_ultima_reproduccion();
         this.tipo_ultima_reproduccion = usuario.getTipo_ultima_reproduccion();
@@ -48,6 +49,8 @@ public class UsuarioDto {
     private Boolean tipo_user;
 
     private Date fecha_nacimiento;
+
+    private String nombre_avatar;
 
     private Integer id_ultima_reproduccion;
 
@@ -113,6 +116,14 @@ public class UsuarioDto {
 
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getNombre_avatar() {
+        return nombre_avatar;
+    }
+
+    public void setNombre_avatar(String nombre_avatar) {
+        this.nombre_avatar = nombre_avatar;
     }
 
     public Integer getId_ultima_reproduccion() {

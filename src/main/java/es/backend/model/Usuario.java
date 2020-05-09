@@ -129,6 +129,14 @@ public class Usuario {
         this.tipo_ultima_reproduccion = tipo_ultima_reproduccion;
     }
 
+    public String getNombre_avatar() {
+        return nombre_avatar;
+    }
+
+    public void setNombre_avatar(String nombre_avatar) {
+        this.nombre_avatar = nombre_avatar;
+    }
+
     public void setLastPlay(Integer id_play, Integer minuto_play, Integer tipo_play) {
         setId_ultima_reproduccion(id_play);
         setMinuto_ultima_reproduccion(minuto_play);
