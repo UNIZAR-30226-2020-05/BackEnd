@@ -82,4 +82,13 @@ public class PodcastController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+
+    @DeleteMapping(path="/delete/{id}")
+    public ResponseEntity deletePodcast(@PathVariable Integer id) {
+        if (podcastService.deletePodcast(id)) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
 }

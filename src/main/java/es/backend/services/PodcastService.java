@@ -73,4 +73,14 @@ public class PodcastService {
         }
     }
 
+    @Transactional
+    public Boolean deletePodcast(Integer id) {
+        if (podcastRepository.findById(id).isPresent()) {
+            podcastRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
