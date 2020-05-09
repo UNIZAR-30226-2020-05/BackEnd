@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Controller("ListaPodcastController")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
@@ -50,11 +51,18 @@ public class ListaPodcastController {
         }
     }
 
+    // Devuelve status = 304 (NOT_MODIFIED) si el podcast ya existía en la lista
     @PatchMapping(path="/add/{id_PodcastList}")
     public ResponseEntity addPodcastToSongList(@PathVariable Integer id_PodcastList, @RequestBody Integer id_Podcast) {
-        Optional<ListaPodcast> listaPodcastOptional = listaPodcastService.addPodcast(id_PodcastList, id_Podcast);
+        AtomicBoolean existePodcast = new AtomicBoolean();
+        existePodcast.set(false);
+        Optional<ListaPodcast> listaPodcastOptional = listaPodcastService.addPodcast(id_PodcastList, id_Podcast, existePodcast);
         if (listaPodcastOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(new ListaPodcastDto(listaPodcastOptional.get()));
+            if(existePodcast.compareAndSet(true, true)){
+                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new ListaPodcastDto(listaPodcastOptional.get()));
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(new ListaPodcastDto(listaPodcastOptional.get()));
+            }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -70,8 +78,8 @@ public class ListaPodcastController {
     }
 
     @PatchMapping(path="/deletePodcast/{id_PodcastList}")
-    public ResponseEntity deletePodcastToPodcastList(@PathVariable Integer id_PodcastList, @RequestBody Integer id_song) {
-        Optional<ListaPodcast> listaPodcastOptional = listaPodcastService.deletePodcastDeLista(id_PodcastList, id_song);
+    public ResponseEntity deletePodcastToPodcastList(@PathVariable Integer id_PodcastList, @RequestBody Integer id_podcast) {
+        Optional<ListaPodcast> listaPodcastOptional = listaPodcastService.deletePodcastDeLista(id_PodcastList, id_podcast);
         if (listaPodcastOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(new ListaPodcastDto(listaPodcastOptional.get()));
         } else {
