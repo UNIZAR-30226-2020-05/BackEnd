@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class ListaPodcastService {
@@ -40,11 +41,16 @@ public class ListaPodcastService {
     }
 
     @Transactional
-    public Optional<ListaPodcast> addPodcast(Integer id_lista, Integer id_podcast) {
+    public Optional<ListaPodcast> addPodcast(Integer id_lista, Integer id_podcast, AtomicBoolean existePodcast) {
         Optional<Podcast> optionalPodcast = podcastService.getById(id_podcast);
         Optional<ListaPodcast> optionalListaPodcast = listaPodcastRepository.findById(id_lista);
         if(optionalPodcast.isPresent() && optionalListaPodcast.isPresent()){
-            optionalListaPodcast.get().addPodcast(optionalPodcast.get());
+            if(optionalListaPodcast.get().existePodcast(optionalPodcast.get())){
+                existePodcast.set(true);
+            }else {
+                optionalListaPodcast.get().addPodcast(optionalPodcast.get());
+                existePodcast.set(false);
+            }
             return optionalListaPodcast;
         } else {
             return optionalListaPodcast;

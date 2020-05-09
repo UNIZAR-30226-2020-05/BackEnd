@@ -44,5 +44,7 @@ public class ListaPodcast {
 
     public void addPodcast(Podcast podcast){ podcasts.add(podcast); }
 
+    public boolean existePodcast(Podcast podcast){ return podcasts.contains(podcast); }
+
     public void deletePodcast(Podcast podcast){ podcasts.remove(podcast); }
 }
