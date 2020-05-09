@@ -1,6 +1,7 @@
 package es.backend.services;
 
 import es.backend.model.ListaCancion;
+import es.backend.model.ListaPodcast;
 import es.backend.model.Usuario;
 import es.backend.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ public class UserService {
     @Autowired
     private ListaCancionService listaCancionService;
 
+    @Autowired
+    private ListaPodcastService listaPodcastService;
+
     public Optional<Usuario> create(Usuario usuario) {
         ListaCancion listaCancion = new ListaCancion("Favoritos");
+        ListaPodcast listaPodcast = new ListaPodcast("Favoritos");
         usuarioRepository.save(usuario);
         listaCancionService.create(listaCancion, usuario);
+        listaPodcastService.create(listaPodcast, usuario);
         usuario = usuarioRepository.save(usuario);
         return Optional.of(usuario);
     }
