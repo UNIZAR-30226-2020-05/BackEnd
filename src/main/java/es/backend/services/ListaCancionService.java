@@ -1,5 +1,6 @@
 package es.backend.services;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import es.backend.model.*;
 import es.backend.repository.ListaCancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,29 +46,45 @@ public class ListaCancionService {
     }
 
     @Transactional
-    public Optional<ListaCancion> addSong(Integer id_lista, Integer id_cancion) {
+    public Optional<ListaCancion> addSong(Integer id_lista, Integer id_cancion, AtomicBoolean existeCancion) {
         Optional<Cancion> optionalCancion = cancionService.getById(id_cancion);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
         if(optionalCancion.isPresent() && optionalListaCancion.isPresent()){
-            optionalListaCancion.get().addCancion(optionalCancion.get());
+            if(optionalListaCancion.get().existeCancion(optionalCancion.get())){
+                existeCancion.set(true);
+            }else {
+                optionalListaCancion.get().addCancion(optionalCancion.get());
+                existeCancion.set(false);
+            }
             return optionalListaCancion;
         } else {
-            return optionalListaCancion;
+            return optionalListaCancion.empty();
         }
     }
 
     @Transactional
-    public boolean addAlbum(Integer id_lista, Integer id_album) {
+    public Optional<ListaCancion> addAlbum(Integer id_lista, Integer id_album, AtomicInteger existeCancion) {
         Optional<Album> optionalAlbum= albumService.getById(id_album);
         Optional<ListaCancion> optionalListaCancion = listaCancionRepository.findById(id_lista);
+        int yaEnLista = 0;
         if(optionalAlbum.isPresent() && optionalListaCancion.isPresent()){
+            existeCancion.set(0);
             List<Cancion> canciones = optionalAlbum.get().getCanciones();
             for(int i = 0;i < canciones.size();i++){
-                optionalListaCancion.get().addCancion(canciones.get(i));
+                if(!optionalListaCancion.get().existeCancion(canciones.get(i))){
+                    optionalListaCancion.get().addCancion(canciones.get(i));
+                }else{
+                    yaEnLista++;
+                }
             }
-            return true;
+            if(yaEnLista == canciones.size()){
+                existeCancion.set(2);
+            }else if(yaEnLista > 0){
+                existeCancion.set(1);
+            }
+            return optionalListaCancion;
         }else{
-            return false;
+            return optionalListaCancion.empty();
         }
     }
 

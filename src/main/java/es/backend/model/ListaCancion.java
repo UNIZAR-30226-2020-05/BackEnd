@@ -44,5 +44,7 @@ public class ListaCancion {
 
     public void addCancion(Cancion cancion){ canciones.add(cancion); }
 
+    public boolean existeCancion(Cancion cancion){ return canciones.contains(cancion); }
+
     public void deleteCancion(Cancion cancion){ canciones.remove(cancion); }
 }

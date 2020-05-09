@@ -1,5 +1,6 @@
 package es.backend.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
 import es.backend.model.dto.ListaCancionDto;
@@ -14,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller("ListaCancionController")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
@@ -48,20 +52,38 @@ public class ListaCancionController {
         }
     }
 
+    // Devuelve status = 304 (NOT_MODIFIED) si la cancion ya existía en la lista
     @PatchMapping(path="/add/{id_SongList}")
     public ResponseEntity addSongToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_song) {
-        Optional<ListaCancion> listaCancionOptional = listaCancionService.addSong(id_SongList, id_song);
+        AtomicBoolean existeCancion = new AtomicBoolean();
+        existeCancion.set(false);
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.addSong(id_SongList, id_song, existeCancion);
         if (listaCancionOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
+            if(existeCancion.compareAndSet(true, true)){
+                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new ListaCancionDto(listaCancionOptional.get()));
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
+            }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
 
+    // Devuelve status = 304 (NOT_MODIFIED) si todas las canciones del album ya estan en la lista
+    // Devuelve status = 206 (PARTIAL_CONTENT) si alguna de las canciones del album ya esta en la lista
     @PatchMapping(path="/addByAlbum/{id_SongList}")
     public ResponseEntity addAlbumToSongList(@PathVariable Integer id_SongList, @RequestBody Integer id_album) {
-        if (listaCancionService.addAlbum(id_SongList, id_album)){
-            return ResponseEntity.status(HttpStatus.OK).body("");
+        AtomicInteger existeCancion = new AtomicInteger();
+        existeCancion.set(0);
+        Optional<ListaCancion> listaCancionOptional = listaCancionService.addAlbum(id_SongList, id_album, existeCancion);
+        if (listaCancionOptional.isPresent()){
+            if(existeCancion.compareAndSet(2,2)){
+                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(new ListaCancionDto(listaCancionOptional.get()));
+            }else if(existeCancion.compareAndSet(1,1)){
+                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(new ListaCancionDto(listaCancionOptional.get()));
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(new ListaCancionDto(listaCancionOptional.get()));
+            }
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
