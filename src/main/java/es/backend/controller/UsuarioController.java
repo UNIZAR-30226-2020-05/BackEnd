@@ -53,11 +53,12 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping(value = "/getImg", produces = {
-            MediaType.APPLICATION_OCTET_STREAM_VALUE })
+    @GetMapping(value = "/getImg",
+            produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity getAvatarUser(String nombreAvatar) {
         Optional<InputStreamResource> inputOptional = imagenService.getAvatar(nombreAvatar);
         if (inputOptional.isPresent()) {
+            System.out.println("Fotele de locos");
             return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");

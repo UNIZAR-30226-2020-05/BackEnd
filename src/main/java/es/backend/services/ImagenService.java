@@ -33,33 +33,36 @@ public class ImagenService {
 
     public Optional<InputStreamResource> getAvatar(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "file:imagenes/avatares" + nombre + ".jpg");
+                "file:imagenes/avatares/" + nombre + ".jpg");
         try {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
         } catch (IOException e) {
+            System.out.println(e);
             return Optional.empty();
         }
     }
 
     public Optional<InputStreamResource> getFotoAlbum(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "file:imagenes/albumes" + nombre + ".jpg");
+                "file:imagenes/albumes/" + nombre + ".jpg");
         try {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
         } catch (IOException e) {
+            System.out.println(e);
             return Optional.empty();
         }
     }
 
     public Optional<InputStreamResource> getFotoArtista(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "file:imagenes/artistas" + nombre + ".jpg");
+                "file:imagenes/artistas/" + nombre + ".jpg");
         try {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
         } catch (IOException e) {
+            System.out.println(e);
             return Optional.empty();
         }
     }
