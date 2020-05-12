@@ -13,6 +13,7 @@ public class PodcastDto {
         this.name = podcast.getNombre();
         this.fecha_subida = podcast.getFecha_subida();
         this.duracion = podcast.getDuracion();
+        this.artista = podcast.getArtista();
     }
 
     private Integer id;
@@ -22,6 +23,8 @@ public class PodcastDto {
     private Date fecha_subida;
 
     private Integer duracion;
+
+    private String artista;
 
     public Integer getId() { return id; }
 
@@ -46,4 +49,13 @@ public class PodcastDto {
     public Date getFecha_subida() { return fecha_subida; }
 
     //public void setFecha_subida(Date fecha_subida) { this.fecha_subida = fecha_subida; }
+
+
+    public String getArtista() {
+        return artista;
+    }
+
+    public void setArtista(String artista) {
+        this.artista = artista;
+    }
 }
