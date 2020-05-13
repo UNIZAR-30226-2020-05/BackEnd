@@ -1,14 +1,16 @@
 package es.backend.model.dto;
 
 import es.backend.model.Usuario;
+import es.backend.services.UserService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UsuarioDto {
 
-    public UsuarioDto(Usuario usuario) {
+    public UsuarioDto(Usuario usuario, UserService userService) {
         this.id = usuario.getId();
         this.nombre = usuario.getNombre();
         this.apellidos = usuario.getApellidos();
@@ -35,10 +37,15 @@ public class UsuarioDto {
         }
 
         if (usuario.getAmigos() != null) {
-            this.amigos = usuario.getAmigos()
+            List<AmigoDto> amigoDtos = new ArrayList<>();
+            for (Usuario amigo: usuario.getAmigos()) {
+                amigoDtos.add(new AmigoDto(amigo, userService));
+            }
+            this.amigos = amigoDtos;
+            /*this.amigos = usuario.getAmigos()
                     .stream()
                     .map(AmigoDto::new)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList());*/
         }
 
     }

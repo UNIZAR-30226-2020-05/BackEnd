@@ -36,7 +36,11 @@ public class CancionService {
         return Optional.of(cancionRepository.save(cancion));
     }
 
-    public Optional<Cancion> getById(Integer id) { return cancionRepository.findById(id); }
+    public Optional<Cancion> getById(Integer id) {
+        Optional<Cancion> cancionOptional = cancionRepository.findById(id);
+        cancionOptional.get().getNombre();
+        return cancionOptional;
+    }
 
     public Optional<Cancion> getByName(String name) { return cancionRepository.findByName(name); }
 
