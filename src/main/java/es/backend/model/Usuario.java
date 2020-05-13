@@ -35,6 +35,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<ListaCancion> lista_cancion = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<ListaPodcast> lista_podcast = new ArrayList<>();
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name="usuario_amigos",
             joinColumns=@JoinColumn(name="usuario_id"),
@@ -153,6 +156,14 @@ public class Usuario {
 
     public void addLista(ListaCancion listaCancion) {
         this.lista_cancion.add(listaCancion);
+    }
+
+    public List<ListaPodcast> getLista_podcast() {
+        return lista_podcast;
+    }
+
+    public void setLista_podcast(List<ListaPodcast> lista_podcast) {
+        this.lista_podcast = lista_podcast;
     }
 
     public List<Usuario> getAmigos() {

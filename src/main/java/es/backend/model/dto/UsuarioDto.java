@@ -27,6 +27,13 @@ public class UsuarioDto {
                     .collect(Collectors.toList());
         }
 
+        if (usuario.getLista_podcast() != null) {
+            this.lista_podcast = usuario.getLista_podcast()
+                    .stream()
+                    .map(ListaPodcastDto::new)
+                    .collect(Collectors.toList());
+        }
+
         if (usuario.getAmigos() != null) {
             this.amigos = usuario.getAmigos()
                     .stream()
@@ -59,6 +66,8 @@ public class UsuarioDto {
     private Integer tipo_ultima_reproduccion;
 
     private List<ListaCancionDto> lista_cancion;
+
+    private List<ListaPodcastDto> lista_podcast;
 
     private List<AmigoDto> amigos;
 
@@ -156,6 +165,14 @@ public class UsuarioDto {
 
     public void setLista_cancion(List<ListaCancionDto> lista_cancion) {
         this.lista_cancion = lista_cancion;
+    }
+
+    public List<ListaPodcastDto> getLista_podcast() {
+        return lista_podcast;
+    }
+
+    public void setLista_podcast(List<ListaPodcastDto> lista_podcast) {
+        this.lista_podcast = lista_podcast;
     }
 
     public List<AmigoDto> getAmigos() {

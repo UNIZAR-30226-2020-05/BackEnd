@@ -1,8 +1,13 @@
 package es.backend.model.dto;
 
+import es.backend.model.Cancion;
+import es.backend.model.Podcast;
 import es.backend.model.Usuario;
 import es.backend.services.CancionService;
+import es.backend.services.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 public class AmigoDto {
 
@@ -10,13 +15,30 @@ public class AmigoDto {
     @Autowired
     private CancionService cancionService;
 
+    @Autowired
+    private PodcastService podcastService;
+
     public AmigoDto(Usuario usuario) {
         this.id = usuario.getId();
         this.nick = usuario.getNick();
         this.nombre = usuario.getNombre();
         this.apellidos = usuario.getApellidos();
         if (usuario.getId_ultima_reproduccion() != null) {
-            this.ultimaCancion = cancionService.getById(usuario.getId_ultima_reproduccion()).get().getNombre();
+            Optional<Cancion> ultimaCancion = cancionService.getById(usuario.getId_ultima_reproduccion());
+            if (ultimaCancion.isPresent()) {
+                this.ultimaCancion = ultimaCancion.get().getNombre();
+                this.artistaUltimaCancion = ultimaCancion.get().getArtistas().get(0).getNombre();
+            } else {
+                Optional<Podcast> ultimoPodcast = podcastService.getById(usuario.getId_ultima_reproduccion());
+                if (ultimoPodcast.isPresent()) {
+                    this.ultimaCancion = ultimoPodcast.get().getNombre();
+                    this.artistaUltimaCancion = ultimoPodcast.get().getArtista();
+                } else {
+                    this.ultimaCancion = "";
+                    this.artistaUltimaCancion = "";
+                }
+            }
+
         }
     }
 
@@ -29,6 +51,8 @@ public class AmigoDto {
     private String apellidos;
 
     private String ultimaCancion;
+
+    private String artistaUltimaCancion;
 
     public Integer getId() {
         return id;
@@ -68,5 +92,13 @@ public class AmigoDto {
 
     public void setUltimaCancion(String ultimaCancion) {
         this.ultimaCancion = ultimaCancion;
+    }
+
+    public String getArtistaUltimaCancion() {
+        return artistaUltimaCancion;
+    }
+
+    public void setArtistaUltimaCancion(String artistaUltimaCancion) {
+        this.artistaUltimaCancion = artistaUltimaCancion;
     }
 }

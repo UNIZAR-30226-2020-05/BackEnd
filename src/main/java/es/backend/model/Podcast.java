@@ -18,6 +18,8 @@ public class Podcast {
 
     private Integer duracion;
 
+    private String artista;
+
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "lista_podcast_podcasts",
             joinColumns = @JoinColumn(name = "podcast_id"),
@@ -62,5 +64,13 @@ public class Podcast {
             return true;
         }
         return false;
+    }
+
+    public String getArtista() {
+        return artista;
+    }
+
+    public void setArtista(String artista) {
+        this.artista = artista;
     }
 }
