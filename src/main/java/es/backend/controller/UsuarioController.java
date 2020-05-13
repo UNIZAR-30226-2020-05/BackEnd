@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,7 +39,8 @@ public class UsuarioController {
     public @ResponseBody ResponseEntity addNewUser (@RequestBody UsuarioRequest usuarioRequest) {
         Optional<Usuario> userOptional = userService.create(usuarioRequest.toEntity());
          if (userOptional.isPresent()) {
-             return ResponseEntity.status(HttpStatus.CREATED).body(new UsuarioDto(userOptional.get()));
+             return ResponseEntity.status(HttpStatus.CREATED).body(new UsuarioDto(userOptional.get(),
+                     userService));
          } else {
              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
          }
@@ -47,7 +50,8 @@ public class UsuarioController {
     public ResponseEntity getUserByNick(String nick) {
         Optional<Usuario> userOptional = userService.getByNick(nick);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -69,7 +73,8 @@ public class UsuarioController {
     public ResponseEntity getUserLogIn(String nick, String pass) {
         Optional<Usuario> userOptional = userService.getLogin(nick, pass);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -79,7 +84,8 @@ public class UsuarioController {
     public ResponseEntity modifyPassword(@PathVariable Integer id, @RequestBody String pass) {
         Optional<Usuario> userOptional = userService.setUserPasswordById(id, pass);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -89,7 +95,8 @@ public class UsuarioController {
     public ResponseEntity addAmigo(@PathVariable Integer id1, @RequestBody Integer id2) {
         Optional<Usuario> userOptional = userService.addAmigos(id1, id2);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -99,7 +106,8 @@ public class UsuarioController {
     public ResponseEntity deleteAmigo(@PathVariable Integer id1, @RequestBody Integer id2) {
         Optional<Usuario> userOptional = userService.deleteAmigos(id1, id2);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
@@ -116,10 +124,11 @@ public class UsuarioController {
 
     @GetMapping(path="/findAll")
     public ResponseEntity<Collection<UsuarioDto>> getAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll()
-                .stream()
-                .map(UsuarioDto::new)
-                .collect(Collectors.toList()));
+        List<UsuarioDto> usuarioDtos = new ArrayList<>();
+        for (Usuario usuario : userService.findAll()) {
+            usuarioDtos.add(new UsuarioDto(usuario, userService));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioDtos);
     }
 
     @PatchMapping(path="/modifyLastPlay/{id}")
@@ -137,7 +146,8 @@ public class UsuarioController {
         }
         Optional<Usuario> userOptional = userService.modifyLastPlay(id, idPlay, minutoPlay, tipoPlay);
         if (userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }

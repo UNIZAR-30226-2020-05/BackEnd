@@ -1,8 +1,6 @@
 package es.backend.services;
 
-import es.backend.model.ListaCancion;
-import es.backend.model.ListaPodcast;
-import es.backend.model.Usuario;
+import es.backend.model.*;
 import es.backend.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,12 @@ public class UserService {
 
     @Autowired
     private ListaPodcastService listaPodcastService;
+
+    @Autowired
+    private CancionService cancionService;
+
+    @Autowired
+    private PodcastService podcastService;
 
     public Optional<Usuario> create(Usuario usuario) {
         ListaCancion listaCancion = new ListaCancion("Favoritos");
@@ -100,6 +104,26 @@ public class UserService {
         } else {
             return Optional.empty();
         }
+    }
+
+    public Optional<Cancion> getUltimaCancion(Usuario usuario) {
+        if (usuario.getId_ultima_reproduccion() != null) {
+            Optional<Cancion> ultimaCancionOp = cancionService.getById(usuario.getId_ultima_reproduccion());
+            if (ultimaCancionOp.isPresent()) {
+                return ultimaCancionOp;
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Podcast> getUltimoPodcast(Usuario usuario) {
+        if (usuario.getId_ultima_reproduccion() != null) {
+            Optional<Podcast> ultimoPodcastOp = podcastService.getById(usuario.getId_ultima_reproduccion());
+            if (ultimoPodcastOp.isPresent()) {
+                return ultimoPodcastOp;
+            }
+        }
+        return Optional.empty();
     }
 
 }
