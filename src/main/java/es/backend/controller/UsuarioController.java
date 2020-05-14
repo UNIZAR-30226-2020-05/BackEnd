@@ -115,6 +115,17 @@ public class UsuarioController {
         }
     }
 
+    @PatchMapping(path="/setAvatar/{id}")
+    public ResponseEntity addAmigo(@PathVariable Integer id, @RequestBody String avatar) {
+        Optional<Usuario> userOptional = userService.setAvatar(id, avatar);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(new UsuarioDto(userOptional.get(),
+                    userService));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+        }
+    }
+
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id) {
         if (userService.deleteUser(id)) {

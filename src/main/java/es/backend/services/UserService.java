@@ -126,4 +126,12 @@ public class UserService {
         return Optional.empty();
     }
 
+    @Transactional
+    public Optional<Usuario> setAvatar(Integer id, String avatar) {
+        Optional<Usuario> user = usuarioRepository.findById(id);
+        if (user.isPresent()) {
+            user.get().setNombre_avatar(avatar);
+        }
+        return user;
+    }
 }
