@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 public class Artista {
 
-    //static private String path = "/fotos/artistas/"
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -15,6 +14,7 @@ public class Artista {
     private String nombre;
 
     //Nombre de la imagen del artista
+    private String imagenPath = "fotos/artistas/";
     private String imagen;
 
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL)
@@ -35,7 +35,7 @@ public class Artista {
 
     public void setNombre(String name) { this.nombre = name; }
 
-    public String getImagen() { return imagen; }
+    public String getImagen() { return imagenPath+imagen; }
 
     public void setImagen(String image) { this.imagen = image; }
 

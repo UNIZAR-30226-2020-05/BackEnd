@@ -57,6 +57,7 @@ public class UsuarioController {
         }
     }
 
+    /*
     @GetMapping(value = "/getImg",
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity getAvatarUser(String nombreAvatar) {
@@ -68,6 +69,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+    */
 
     @GetMapping(path="/logIn")
     public ResponseEntity getUserLogIn(String nick, String pass) {

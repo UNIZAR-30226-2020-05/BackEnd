@@ -6,12 +6,14 @@ import java.util.List;
 @Entity
 public class Album {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     private String titulo;
 
+    private String caratulaPath = "imagenes/caratulas/";
     private String caratula;
 
     @ManyToOne
@@ -36,7 +38,7 @@ public class Album {
         this.titulo = titulo_album;
     }
 
-    public String getCaratula() { return caratula; }
+    public String getCaratula() { return caratulaPath+caratula; }
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;

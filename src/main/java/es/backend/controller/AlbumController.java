@@ -58,6 +58,7 @@ public class AlbumController {
         }
     }
 
+    /*
     @GetMapping(value = "/getImg", produces = {
             MediaType.APPLICATION_OCTET_STREAM_VALUE })
     public ResponseEntity getFotoAlbum(String nombreAlbum) {
@@ -68,6 +69,7 @@ public class AlbumController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+     */
 
     @GetMapping(path="/getByTitulo")
     public ResponseEntity<List<AlbumDto>> getAlbumByTitulo(String titulo) {

@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 public class Usuario {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
@@ -30,6 +31,7 @@ public class Usuario {
 
     private Integer tipo_ultima_reproduccion;
 
+    private String avatarPath = "imagenes/avatares/";
     private String nombre_avatar;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -133,7 +135,7 @@ public class Usuario {
     }
 
     public String getNombre_avatar() {
-        return nombre_avatar;
+        return avatarPath+nombre_avatar;
     }
 
     public void setNombre_avatar(String nombre_avatar) {

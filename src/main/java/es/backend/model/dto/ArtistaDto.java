@@ -38,6 +38,8 @@ public class ArtistaDto {
 
     private List<String> canciones;
 
+
+
     public Integer getId() { return id; }
 
     //public void setId(Integer id) { this.id = id; }

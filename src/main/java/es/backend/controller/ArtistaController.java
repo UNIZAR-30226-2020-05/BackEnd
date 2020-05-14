@@ -65,6 +65,7 @@ public class ArtistaController {
         }
     }
 
+    /*
     @GetMapping(value = "/getImg", produces = {
             MediaType.APPLICATION_OCTET_STREAM_VALUE })
     public ResponseEntity getFotoArtista(String nombreArtista) {
@@ -75,6 +76,7 @@ public class ArtistaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
+     */
 
     @DeleteMapping(path="/delete/{id}")
     public ResponseEntity deleteArtista(@PathVariable Integer id) {

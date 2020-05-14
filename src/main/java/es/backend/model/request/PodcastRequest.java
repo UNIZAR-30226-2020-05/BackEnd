@@ -9,6 +9,8 @@ public class PodcastRequest {
 
     private String nombre;
 
+    private String artista;
+
     private Date fecha_subida;
 
     private Integer duracion;
@@ -16,6 +18,10 @@ public class PodcastRequest {
     public String getNombre() { return nombre; }
 
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getArtista() { return artista; }
+
+    public void setArtista(String artista) { this.artista = artista; }
 
     public Date getFecha_subida() { return fecha_subida; }
 
@@ -32,6 +38,7 @@ public class PodcastRequest {
     public Podcast toEntity(){
         Podcast podcast = new Podcast();
         podcast.setNombre(nombre);
+        podcast.setArtista(artista);
         podcast.setFecha_subida(fecha_subida);
         podcast.setDuracion(duracion);
         return podcast;

@@ -14,6 +14,7 @@ public class AmigoDto {
         this.nick = usuario.getNick();
         this.nombre = usuario.getNombre();
         this.apellidos = usuario.getApellidos();
+        this.avatar = usuario.getNombre_avatar();
         if (usuario.getTipo_ultima_reproduccion() != null) {
             if (usuario.getTipo_ultima_reproduccion() == 0) {
                 Optional<Cancion> cancionOptional = userService.getUltimaCancion(usuario);
@@ -38,6 +39,8 @@ public class AmigoDto {
     private String nombre;
 
     private String apellidos;
+
+    private String avatar;
 
     private String ultimaCancion = "";
 
@@ -74,6 +77,10 @@ public class AmigoDto {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
+    public String getAvatar() { return avatar; }
+
+    public void setAvatar(String avatar) { this.avatar = avatar; }
 
     public String getUltimaCancion() {
         return ultimaCancion;
