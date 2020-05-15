@@ -14,7 +14,6 @@ public class Artista {
     private String nombre;
 
     //Nombre de la imagen del artista
-    private String imagenPath = "fotos/artistas/";
     private String imagen;
 
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL)
@@ -35,7 +34,7 @@ public class Artista {
 
     public void setNombre(String name) { this.nombre = name; }
 
-    public String getImagen() { return imagenPath+imagen; }
+    public String getImagen() { return "fotos/artistas/"+imagen; }
 
     public void setImagen(String image) { this.imagen = image; }
 

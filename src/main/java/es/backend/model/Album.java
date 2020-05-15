@@ -13,7 +13,6 @@ public class Album {
 
     private String titulo;
 
-    private String caratulaPath = "imagenes/caratulas/";
     private String caratula;
 
     @ManyToOne
@@ -38,7 +37,7 @@ public class Album {
         this.titulo = titulo_album;
     }
 
-    public String getCaratula() { return caratulaPath+caratula; }
+    public String getCaratula() { return "imagenes/caratulas/"+caratula; }
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;
