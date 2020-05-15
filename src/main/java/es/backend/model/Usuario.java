@@ -134,7 +134,7 @@ public class Usuario {
     }
 
     public String getNombre_avatar() {
-        return "imagenes/avatares/"+nombre_avatar;
+        return nombre_avatar;
     }
 
     public void setNombre_avatar(String nombre_avatar) {

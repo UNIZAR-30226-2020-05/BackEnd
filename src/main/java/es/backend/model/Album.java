@@ -37,7 +37,7 @@ public class Album {
         this.titulo = titulo_album;
     }
 
-    public String getCaratula() { return "imagenes/caratulas/"+caratula; }
+    public String getCaratula() { return caratula; }
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;

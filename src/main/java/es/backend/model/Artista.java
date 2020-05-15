@@ -34,7 +34,7 @@ public class Artista {
 
     public void setNombre(String name) { this.nombre = name; }
 
-    public String getImagen() { return "fotos/artistas/"+imagen; }
+    public String getImagen() { return imagen; }
 
     public void setImagen(String image) { this.imagen = image; }
 
