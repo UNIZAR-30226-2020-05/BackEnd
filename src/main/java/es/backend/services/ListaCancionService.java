@@ -1,6 +1,5 @@
 package es.backend.services;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import es.backend.model.*;
 import es.backend.repository.ListaCancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 public class ListaCancionService {

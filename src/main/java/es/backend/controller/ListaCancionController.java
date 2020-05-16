@@ -1,10 +1,7 @@
 package es.backend.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import es.backend.model.Cancion;
 import es.backend.model.ListaCancion;
 import es.backend.model.dto.ListaCancionDto;
-import es.backend.model.dto.UsuarioDto;
 import es.backend.model.request.ListaCancionRequest;
 import es.backend.services.ListaCancionService;
 import org.slf4j.Logger;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
