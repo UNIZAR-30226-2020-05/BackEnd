@@ -1,23 +1,17 @@
 package es.backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import es.backend.model.Album;
-import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import es.backend.model.dto.AlbumDto;
-import es.backend.model.dto.CancionDto;
 import es.backend.model.request.AlbumRequest;
 import es.backend.model.request.CancionRequest;
 import es.backend.services.AlbumService;
-import es.backend.services.ArtistaService;
 import es.backend.services.ImagenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
