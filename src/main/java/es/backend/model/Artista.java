@@ -34,7 +34,7 @@ public class Artista {
 
     public void setNombre(String name) { this.nombre = name; }
 
-    public String getImagen() { return imagen; }
+    public String getImagen() { return "https://3.18.169.143:8443:8433/imagenes/artistas/"+imagen; }
 
     public void setImagen(String image) { this.imagen = image; }
 
