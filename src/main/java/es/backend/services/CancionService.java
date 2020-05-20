@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 public class CancionService {
 
-    private final Path music = Paths.get("music");
+    private final Path music = Paths.get("data/music");
 
     @Autowired
     private CancionRepository cancionRepository;
@@ -62,7 +62,7 @@ public class CancionService {
 
     public Optional<InputStreamResource> buscarCancion(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "file:music/" + nombre + ".mp3");
+                "file:data/music/" + nombre + ".mp3");
         try {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
