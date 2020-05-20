@@ -18,10 +18,9 @@ public class BackEndPSApplication {
 	    SpringApplication.run(BackEndPSApplication.class, args);
 	}
 
-	//*
 	@Bean
 	public ServletWebServerFactory servletContainer() {
-		// Enable SSL Trafic
+		// Habilitar tráfico SSL
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
 			@Override
 			protected void postProcessContext(Context context) {
@@ -34,17 +33,14 @@ public class BackEndPSApplication {
 			}
 		};
 
-		// Add HTTP to HTTPS redirect
+		// Añadir redirección HTTP a HTTPS
 		tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
 
 		return tomcat;
 	}
 
 
-    /*We need to redirect from HTTP to HTTPS. Without SSL, this application used
-    port 8082. With SSL it will use port 8443. So, any request for 8082 needs to be
-    redirected to HTTPS on 8443.
-	*/
+    // Redireccionar peticiones http a https (del puerto 8080 al 8443)
 	private Connector httpToHttpsRedirectConnector() {
 		Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
 		connector.setScheme("http");
@@ -53,5 +49,4 @@ public class BackEndPSApplication {
 		connector.setRedirectPort(8443);
 		return connector;
 	}
-	//*/
 }
