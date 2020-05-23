@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 public class PodcastService {
 
-    private final Path podcast = Paths.get("podcast");
+    private final Path podcast = Paths.get("data/podcast");
 
     @Autowired
     private PodcastRepository podcastRepository;
@@ -51,7 +51,7 @@ public class PodcastService {
 
     public Optional<InputStreamResource> buscarPodcast(String nombre) {
         Resource resource = resourceLoader.getResource(
-                "file:podcast/" + nombre + ".mp3");
+                "file:data/podcast/" + nombre + ".mp3");
         try {
             return Optional.of(new InputStreamResource(
                     new FileInputStream(resource.getFile())));
