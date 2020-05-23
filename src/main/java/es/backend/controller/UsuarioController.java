@@ -144,6 +144,12 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioDtos);
     }
 
+    @PatchMapping(path="/modifyLastPlayAndroid/{id}")
+    public ResponseEntity modifyLastPlayAndroid(@PathVariable Integer id, @RequestBody String play) {
+        String playSplit[] = play.split(";");
+        return modifyLastPlay(id, playSplit[0], playSplit[1], playSplit[2]);
+    }
+
     @PatchMapping(path="/modifyLastPlay/{id}")
     public ResponseEntity modifyLastPlay(@PathVariable Integer id, @RequestParam String id_play,
                                          @RequestParam String minuto_play, @RequestParam String tipo_play) {
