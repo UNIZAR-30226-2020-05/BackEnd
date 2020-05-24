@@ -10,8 +10,13 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +39,24 @@ public class ArtistaService {
 
     @Transactional
     public Boolean deleteArtista(Integer id) {
-        if (artistaRepository.findById(id).isPresent()) {
+        Optional<Artista> ar = artistaRepository.findById(id);
+        if (ar.isPresent()) {
+            deleteImagen(ar.get().getImagen());
             artistaRepository.deleteById(id);
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public Boolean deleteImagen(String foto) {
+        try{
+            Path path = Paths.get("data/imagenes/artistas/"+foto);
+            Files.delete(path);
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println(e);
             return false;
         }
     }

@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -55,10 +58,24 @@ public class AlbumService {
 
     @Transactional
     public Boolean deleteAlbum(Integer id) {
-        if (albumRepository.findById(id).isPresent()) {
+        Optional<Album> al = albumRepository.findById(id);
+        if (al.isPresent()) {
+            deleteImagen(al.get().getCaratula());
             albumRepository.deleteById(id);
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public Boolean deleteImagen(String foto) {
+        try{
+            Path path = Paths.get("data/imagenes/albums/"+foto);
+            Files.delete(path);
+            return true;
+        }
+        catch (Exception e) {
+            System.out.println(e);
             return false;
         }
     }
