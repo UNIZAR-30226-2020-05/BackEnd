@@ -54,6 +54,8 @@ class ListaPodcastServiceTest {
         optionalListaPodcast = listaPodcastService.deletePodcastDeLista(optionalListaPodcast.get().getId(), optionalPodcast.get().getId());
         Assert.isTrue(optionalListaPodcast.isPresent() && optionalListaPodcast.get().getPodcasts().isEmpty(), "ListaPodcast deletePodcastDeLista: ERROR");
         //deleteListaPodcast
-        Assert.isTrue(listaPodcastService.deleteListaPodcast(optionalListaPodcast.get().getId()),"Podcast deleteById: ERROR");
+        Assert.isTrue(listaPodcastService.deleteListaPodcast(optionalListaPodcast.get().getId()),"ListaPodcast deleteById: ERROR");
+        Assert.isTrue(podcastService.deletePodcast(optionalPodcast.get().getId()), "Podcast deletePodcast: ERROR");
+        Assert.isTrue(userService.deleteUser(optionalUsuario.get().getId()),"Usuario delete: ERROR");
     }
 }

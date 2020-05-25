@@ -1,6 +1,7 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class Album {
     private Artista artista;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private List<Cancion> canciones;
+    private List<Cancion> canciones = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -58,5 +59,7 @@ public class Album {
     public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
     }
+
+    public void addCanciones(Cancion cancion){ canciones.add(cancion);}
 
 }

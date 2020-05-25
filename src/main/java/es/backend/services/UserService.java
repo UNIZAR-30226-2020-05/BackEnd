@@ -51,8 +51,13 @@ public class UserService {
 
     @Transactional
     public Optional<Usuario> setUserPasswordById(Integer id, String pass) {
-        usuarioRepository.setUserPasswordById(id, pass);
-        return usuarioRepository.findById(id);
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (usuario.isPresent()) {
+            usuario.get().setContrasena(pass);
+        }
+        //usuarioRepository.setUserPasswordById(id, pass);
+        //return usuarioRepository.findById(id);
+        return usuario;
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 package es.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,14 +18,14 @@ public class Artista {
     private String imagen;
 
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL)
-    private List<Album> albumes;
+    private List<Album> albumes = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cancion_artistas",
             joinColumns=@JoinColumn(name="artistas_id"),
             inverseJoinColumns=@JoinColumn(name="canciones_id")
     )
-    private List<Cancion> canciones;
+    private List<Cancion> canciones = new ArrayList<>();
 
     public Integer getId() { return id; }
 
@@ -41,6 +42,8 @@ public class Artista {
     public List<Album> getAlbumes() {
         return albumes;
     }
+
+    public void addAlbumes(Album album){ albumes.add(album);}
 
     //setAlbumes no es necesario al ser relación bidireccional
     //public void setAlbumes(List<Album> as) { this.albumes = as; }

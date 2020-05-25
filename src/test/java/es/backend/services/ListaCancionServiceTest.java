@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +33,7 @@ class ListaCancionServiceTest {
     private CancionService cancionService;
 
     @Test
+    @Transactional
     void testListaCancionService(){
         //create
         Usuario usuario = new Usuario();
@@ -66,12 +69,14 @@ class ListaCancionServiceTest {
         optionalListaCancion = listaCancionService.deleteCancionDeLista(optionalListaCancion.get().getId(), optionalCancion.get().getId());
         Assert.isTrue(optionalListaCancion.isPresent() && optionalListaCancion.get().getCanciones().isEmpty(), "ListaCancion deleteCancionDeLista: ERROR");
         //addAlbum
-        optionalListaCancion = listaCancionService.addSong(optionalListaCancion.get().getId(), optionalAlbum.get().getId(), atomicBoolean);
+        AtomicInteger atomicInteger = new AtomicInteger();
+        optionalListaCancion = listaCancionService.addAlbum(optionalListaCancion.get().getId(), optionalAlbum.get().getId(), atomicInteger);
         Assert.isTrue(optionalListaCancion.isPresent() && !optionalListaCancion.get().getCanciones().isEmpty(), "ListaCancion addAlbum: ERROR");
         //deleteListaCancion
         Assert.isTrue(listaCancionService.deleteListaCancion(optionalListaCancion.get().getId()), "ListaCancion delete: ERROR");
         Assert.isTrue(albumService.deleteAlbum(optionalAlbum.get().getId()), "Album delete: ERROR");
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()), "Artista delete: ERROR");
+        Assert.isTrue(userService.deleteUser(optionalUsuario.get().getId()),"Usuario delete: ERROR");
     }
 
 }

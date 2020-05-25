@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,7 @@ class UserServiceTest {
     private PodcastService podcastService;
 
     @Test
+    @Transactional
     void testUserService(){
         //usuario
         Usuario usuario = new Usuario();
@@ -57,9 +59,12 @@ class UserServiceTest {
         optionalUsuario = userService.getLogin(optionalUsuario.get().getNick(), optionalUsuario.get().getContrasena());
         Assert.isTrue(optionalUsuario.isPresent(),"Usuario getLogin: ERROR");
         //setUserPasswordById
-        String nuevaPass = "pass1";
-        optionalUsuario = userService.setUserPasswordById(optionalUsuario.get().getId(), nuevaPass);
-        Assert.isTrue(optionalUsuario.isPresent() && optionalUsuario.get().getContrasena().contains(nuevaPass),"Usuario setUserPasswordById: ERROR");
+        String newPass = "nuevaPass";
+        optionalUsuario = userService.setUserPasswordById(optionalUsuario.get().getId(), newPass);
+        Assert.isTrue(optionalUsuario.isPresent() && optionalUsuario.get().getContrasena().contains(newPass),"Usuario setUserPasswordById: ERROR");
+        //getLogin Despues de cambiar contraseña
+        optionalUsuario = userService.getLogin(optionalUsuario.get().getNick(), newPass);
+        Assert.isTrue(optionalUsuario.isPresent(),"Usuario getLogin: ERROR TRAS CAMBIAR CONTRASEÑA");
         //addAmigos
         optionalUsuario = userService.addAmigos(optionalUsuario.get().getId(), optionalAmigo.get().getId());
         Assert.isTrue(optionalUsuario.isPresent() && !optionalUsuario.get().getAmigos().isEmpty(),"Usuario addAmigos: ERROR");
@@ -70,7 +75,6 @@ class UserServiceTest {
         List<Usuario> listaUsers = userService.findAll();
         Assert.isTrue(listaUsers.size() == 2,"Usuario findAll: ERROR");
         //modifyLastPlay && getUltimaCancion //Falla al añadir el artista en el create de Cancion
-       // /*
         Artista artista = new Artista();
         artista.setNombre("Artista1");
         Optional<Artista> optionalArtista = artistaService.create(artista);
@@ -89,7 +93,6 @@ class UserServiceTest {
         cancion = optionalAlbum.get().getCanciones().get(0);
         optionalUsuario = userService.modifyLastPlay(optionalUsuario.get().getId(), cancion.getId(), 90, 1);
         Assert.isTrue(optionalUsuario.isPresent() && userService.getUltimaCancion(optionalUsuario.get()).get().getNombre().contains(cancion.getNombre()),"Usuario modifyLastPlay && getUltimaCancion: ERROR");
-        //*/
         //modifyLastPlay && getUltimoPodcast
         Podcast podcast = new Podcast();
         podcast.setNombre("Podcast1");

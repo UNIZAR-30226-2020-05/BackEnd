@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -28,6 +29,7 @@ class AlbumServiceTest {
     private CancionService cancionService;
 
     @Test
+    @Transactional
     void testAlbumService() {
         //create
         Cancion cancion = new Cancion();
@@ -40,15 +42,14 @@ class AlbumServiceTest {
         Assert.isTrue(optionalArtista.isPresent(), "Artista create: ERROR");
         Album album = new Album();
         album.setTitulo("Album1");
-        //->>> PETA
         Optional<Album> optionalAlbum = albumService.create(album, songs, optionalArtista.get().getId());
         Assert.isTrue(optionalAlbum.isPresent(), "Album create: ERROR");
-
         //getById
         optionalAlbum = albumService.getById(optionalAlbum.get().getId());
         Assert.isTrue(optionalAlbum.isPresent(), "Album getById: ERROR");
         //searchByTitulo
-        List<Album> albums = albumService.searchByTitulo(optionalAlbum.get().getTitulo());
+        List<Album> albums = new ArrayList<>();
+        albums = albumService.searchByTitulo(optionalAlbum.get().getTitulo());
         Assert.isTrue(!albums.isEmpty(), "Album searchByTitulo: ERROR");
         //getByArtista
         albums = albumService.getByArtista(optionalArtista.get().getId());

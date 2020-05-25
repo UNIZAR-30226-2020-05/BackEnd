@@ -43,11 +43,13 @@ public class AlbumService {
         if (artistaOptional.isPresent()) {
             album.setArtista(artistaOptional.get());
             album = albumRepository.save(album);
+            artistaOptional.get().addAlbumes(album);
             Iterator<Cancion> iterator = canciones.iterator();
+            Optional<Cancion> optionalCancion;
             while(iterator.hasNext()){
-                cancionService.create(iterator.next(), album, artistaOptional.get());
+                optionalCancion = cancionService.create(iterator.next(), album, artistaOptional.get());
+                album.addCanciones(optionalCancion.get());
             }
-            album.setArtista(artistaOptional.get()); //
             return Optional.of(album);
         }
         return Optional.empty();

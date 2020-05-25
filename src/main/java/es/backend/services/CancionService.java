@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.Option;
 import java.nio.file.Files;
 import java.io.*;
 import java.nio.file.Path;
@@ -52,7 +53,14 @@ public class CancionService {
 
     public Optional<Collection<Cancion>> getAll() { return Optional.of(cancionRepository.findAll()); }
 
-    public void deleteById(Integer id) { cancionRepository.deleteById(id); }
+    public Boolean deleteById(Integer id) {
+        if (cancionRepository.findById(id).isPresent()) {
+            cancionRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @Transactional
     public void deleteByName(String name) {

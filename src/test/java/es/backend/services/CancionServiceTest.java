@@ -6,11 +6,14 @@ import es.backend.model.Album;
 import es.backend.model.Artista;
 import es.backend.model.Cancion;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -28,6 +31,7 @@ class CancionServiceTest {
     private AlbumService albumService;
 
     @Test
+    @Transactional
     void testCancionService(){
         //Create
         Artista artista = new Artista();
@@ -55,9 +59,7 @@ class CancionServiceTest {
         optionalCanciones = cancionService.getAll();
         Assert.isTrue(optionalCanciones.isPresent() && !optionalCanciones.get().isEmpty(), "Cancion getAll: ERROR");
         //deleteById
-        cancionService.deleteById(optionalCancion.get().getId());
-        optionalCancion = cancionService.getById(optionalCancion.get().getId());
-        Assert.isTrue(!optionalCancion.isPresent(), "Cancion deleteById: ERROR");
+        Assert.isTrue(cancionService.deleteById(optionalCancion.get().getId()), "Cancion deleteById: ERROR");
         Assert.isTrue(albumService.deleteAlbum(optionalAlbum.get().getId()), "Album delete: ERROR");
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()), "Artista delete: ERROR");
     }
