@@ -3,14 +3,11 @@ package es.backend.controller;
 import es.backend.model.Usuario;
 import es.backend.model.request.UsuarioRequest;
 import es.backend.model.dto.UsuarioDto;
-import es.backend.services.ImagenService;
 import es.backend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller("UserController")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,
@@ -29,9 +25,6 @@ public class UsuarioController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ImagenService imagenService;
 
     private Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
@@ -56,20 +49,6 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
         }
     }
-
-    /*
-    @GetMapping(value = "/getImg",
-            produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity getAvatarUser(String nombreAvatar) {
-        Optional<InputStreamResource> inputOptional = imagenService.getAvatar(nombreAvatar);
-        if (inputOptional.isPresent()) {
-            System.out.println("Fotele de locos");
-            return new ResponseEntity(inputOptional.get(), HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
-        }
-    }
-    */
 
     @GetMapping(path="/logIn")
     public ResponseEntity getUserLogIn(String nick, String pass) {

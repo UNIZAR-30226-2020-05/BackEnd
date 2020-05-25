@@ -7,7 +7,6 @@ import es.backend.model.dto.AlbumDto;
 import es.backend.model.request.AlbumRequest;
 import es.backend.model.request.CancionRequest;
 import es.backend.services.AlbumService;
-import es.backend.services.ImagenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,6 @@ public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
-
-    @Autowired
-    private ImagenService imagenService;
 
     private Logger log = LoggerFactory.getLogger(AlbumController.class);
 

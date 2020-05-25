@@ -38,7 +38,7 @@ public class Album {
         this.titulo = titulo_album;
     }
 
-    public String getCaratula() { return "https://3.18.169.143:8443:8433/imagenes/albums/"+caratula; }
+    public String getCaratula() { return "/imagenes/albums/"+caratula; }
 
     public void setCaratula(String caratula) {
         this.caratula = caratula;
