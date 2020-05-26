@@ -34,5 +34,7 @@ class ArtistaServiceTest {
         Assert.isTrue(!ArtistsList.isEmpty(),"Artista getByName: ERROR");
         //Delete
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()),"Artista delete: ERROR");
+        //Delete de un artista que no existe
+        Assert.isTrue(!artistaService.deleteArtista(50),"Artista delete: ERROR");
     }
 }

@@ -39,17 +39,12 @@ public class CancionService {
 
     public Optional<Cancion> getById(Integer id) {
         Optional<Cancion> cancionOptional = cancionRepository.findById(id);
-        cancionOptional.get().getNombre();
         return cancionOptional;
     }
 
     public Optional<Cancion> getByName(String name) { return cancionRepository.findByName(name); }
 
     public Optional<Collection<Cancion>> searchByName(String name) { return cancionRepository.searchByName(name); }
-
-    public Optional<Collection<Cancion>> searchByArtist(String name) { return cancionRepository.searchByArtist(name); }
-
-    public Optional<Collection<Cancion>> searchByAlbum(String name) { return cancionRepository.searchByAlbum(name); }
 
     public Optional<Collection<Cancion>> getAll() { return Optional.of(cancionRepository.findAll()); }
 
@@ -60,12 +55,6 @@ public class CancionService {
         } else {
             return false;
         }
-    }
-
-    @Transactional
-    public void deleteByName(String name) {
-        Optional<Cancion> c = getByName(name);
-        c.ifPresent(cancion -> cancionRepository.delete(cancion));
     }
 
     public Optional<InputStreamResource> buscarCancion(String nombre) {

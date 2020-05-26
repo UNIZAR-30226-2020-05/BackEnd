@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -29,6 +30,7 @@ class ListaPodcastServiceTest {
     private UserService userService;
 
     @Test
+    @Transactional
     void testListaPodcastService() {
         //create
         Usuario usuario = new Usuario();
@@ -37,7 +39,11 @@ class ListaPodcastServiceTest {
         Assert.isTrue(optionalUsuario.isPresent(), "Usuario create: ERROR");
         ListaPodcast listaPodcast = new ListaPodcast();
         listaPodcast.setNombre("ListaPodcast1");
-        Optional<ListaPodcast> optionalListaPodcast = listaPodcastService.createByIdUser(listaPodcast, optionalUsuario.get().getId());
+        //create by user que no existe
+        Optional<ListaPodcast> optionalListaPodcast = listaPodcastService.createByIdUser(listaPodcast, 100);
+        Assert.isTrue(!optionalListaPodcast.isPresent(), "ListaPodcast create: ERROR");
+        //create by user que si existe
+        optionalListaPodcast = listaPodcastService.createByIdUser(listaPodcast, optionalUsuario.get().getId());
         Assert.isTrue(optionalListaPodcast.isPresent(), "ListaPodcast create: ERROR");
         //getById
         optionalListaPodcast = listaPodcastService.getById(optionalListaPodcast.get().getId());
@@ -48,8 +54,15 @@ class ListaPodcastServiceTest {
         Optional<Podcast> optionalPodcast = podcastService.create(podcast);
         Assert.isTrue(optionalPodcast.isPresent(), "Podcast create: ERROR");
         AtomicBoolean atomicBoolean = new AtomicBoolean();
+        //addPodcast que no existe
+        optionalListaPodcast = listaPodcastService.addPodcast(optionalListaPodcast.get().getId(), 100, atomicBoolean);
+        Assert.isTrue(optionalListaPodcast.isPresent() && optionalListaPodcast.get().getPodcasts().isEmpty(), "ListaPodcast addPodcast: ERROR");
+        //addPodcast que si existe
         optionalListaPodcast = listaPodcastService.addPodcast(optionalListaPodcast.get().getId(), optionalPodcast.get().getId(), atomicBoolean);
         Assert.isTrue(optionalListaPodcast.isPresent() && !optionalListaPodcast.get().getPodcasts().isEmpty(), "ListaPodcast addPodcast: ERROR");
+        //deletePodcastDeLista que no existe
+        optionalListaPodcast = listaPodcastService.deletePodcastDeLista(optionalListaPodcast.get().getId(), 100);
+        Assert.isTrue(optionalListaPodcast.isPresent() && !optionalListaPodcast.get().getPodcasts().isEmpty(), "ListaPodcast deletePodcastDeLista: ERROR");
         //deletePodcastDeLista
         optionalListaPodcast = listaPodcastService.deletePodcastDeLista(optionalListaPodcast.get().getId(), optionalPodcast.get().getId());
         Assert.isTrue(optionalListaPodcast.isPresent() && optionalListaPodcast.get().getPodcasts().isEmpty(), "ListaPodcast deletePodcastDeLista: ERROR");
@@ -57,5 +70,7 @@ class ListaPodcastServiceTest {
         Assert.isTrue(listaPodcastService.deleteListaPodcast(optionalListaPodcast.get().getId()),"ListaPodcast deleteById: ERROR");
         Assert.isTrue(podcastService.deletePodcast(optionalPodcast.get().getId()), "Podcast deletePodcast: ERROR");
         Assert.isTrue(userService.deleteUser(optionalUsuario.get().getId()),"Usuario delete: ERROR");
+        //deleteListaPodcast que no existe
+        Assert.isTrue(!listaPodcastService.deleteListaPodcast(100),"ListaPodcast deleteById: ERROR");
     }
 }

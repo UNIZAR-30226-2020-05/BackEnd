@@ -31,32 +31,41 @@ class AlbumServiceTest {
     @Test
     @Transactional
     void testAlbumService() {
-        //create
         Cancion cancion = new Cancion();
         cancion.setNombre("Cancion1");
         List<Cancion> songs = new ArrayList<>();
         songs.add(cancion);
         Artista artista = new Artista();
         artista.setNombre("Artista1");
-        Optional<Artista> optionalArtista = artistaService.create(artista);
-        Assert.isTrue(optionalArtista.isPresent(), "Artista create: ERROR");
         Album album = new Album();
         album.setTitulo("Album1");
-        Optional<Album> optionalAlbum = albumService.create(album, songs, optionalArtista.get().getId());
+        //create artista
+        Optional<Artista> optionalArtista = artistaService.create(artista);
+        Assert.isTrue(optionalArtista.isPresent(), "Artista create: ERROR");
+        List<Album> albums = new ArrayList<>();
+        //Create con un artista que no existe
+        Optional<Album> optionalAlbum = albumService.create(album, songs, 100);
+        Assert.isTrue(!optionalAlbum.isPresent(), "Album create: ERROR");
+        //create
+        optionalAlbum = albumService.create(album, songs, optionalArtista.get().getId());
         Assert.isTrue(optionalAlbum.isPresent(), "Album create: ERROR");
         //getById
         optionalAlbum = albumService.getById(optionalAlbum.get().getId());
         Assert.isTrue(optionalAlbum.isPresent(), "Album getById: ERROR");
         //searchByTitulo
-        List<Album> albums = new ArrayList<>();
         albums = albumService.searchByTitulo(optionalAlbum.get().getTitulo());
         Assert.isTrue(!albums.isEmpty(), "Album searchByTitulo: ERROR");
-        //getByArtista
+        //getByArtista y artista tiene album
         albums = albumService.getByArtista(optionalArtista.get().getId());
         Assert.isTrue(!albums.isEmpty(), "Album getByArtista: ERROR");
+        //getByArtista y artista no tiene album
+        albums = albumService.getByArtista(100);
+        Assert.isTrue(albums.isEmpty(), "Album getByArtista: ERROR");
         //deleteAlbum
         Assert.isTrue(albumService.deleteAlbum(optionalAlbum.get().getId()), "Album deleteAlbum: ERROR");
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()), "Artista delete: ERROR");
+        //deleteAlbum que no existe
+        Assert.isTrue(!albumService.deleteAlbum(100), "Album deleteAlbum: ERROR");
     }
 
 }

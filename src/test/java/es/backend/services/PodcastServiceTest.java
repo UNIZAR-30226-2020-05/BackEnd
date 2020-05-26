@@ -39,5 +39,7 @@ class PodcastServiceTest {
         Assert.isTrue(listaPodcast.isPresent() && !listaPodcast.get().isEmpty(),"Podcast getAll: ERROR");
         //deleteById
         Assert.isTrue(podcastService.deletePodcast(optionalPodcast.get().getId()),"Podcast deleteById: ERROR");
+        //deleteById de un podcast que no existe
+        Assert.isTrue(!podcastService.deletePodcast(100),"Podcast deleteById: ERROR");
     }
 }

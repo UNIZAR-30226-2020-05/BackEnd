@@ -62,6 +62,8 @@ class CancionServiceTest {
         Assert.isTrue(cancionService.deleteById(optionalCancion.get().getId()), "Cancion deleteById: ERROR");
         Assert.isTrue(albumService.deleteAlbum(optionalAlbum.get().getId()), "Album delete: ERROR");
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()), "Artista delete: ERROR");
+        //deleteById de una cancion que no existe
+        Assert.isTrue(!cancionService.deleteById(optionalCancion.get().getId()), "Cancion deleteById: ERROR");
     }
 
 }

@@ -54,20 +54,6 @@ public class CancionController {
         }
     }
 
-    //NO FUNCIONA -- NO TIENE SENTIDO SU USO
-    @GetMapping(path="/getByArtist")
-    public ResponseEntity getCancionByArtist(String name) {
-        Optional<Collection<Cancion>> songsOptional = songService.searchByArtist(name);
-        if (songsOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(songsOptional.get()
-                    .stream()
-                    .map(CancionDto::new)
-                    .collect(Collectors.toList()));
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
-        }
-    }
-
     @GetMapping(value = "/play/{nombre}", produces = {
             MediaType.APPLICATION_OCTET_STREAM_VALUE })
     public ResponseEntity playAudio(@PathVariable String nombre) {

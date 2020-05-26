@@ -74,7 +74,7 @@ class UserServiceTest {
         //findAll
         List<Usuario> listaUsers = userService.findAll();
         Assert.isTrue(listaUsers.size() == 2,"Usuario findAll: ERROR");
-        //modifyLastPlay && getUltimaCancion //Falla al añadir el artista en el create de Cancion
+        //modifyLastPlay && getUltimaCancion
         Artista artista = new Artista();
         artista.setNombre("Artista1");
         Optional<Artista> optionalArtista = artistaService.create(artista);
@@ -91,15 +91,25 @@ class UserServiceTest {
         Assert.isTrue(optionalAlbum.isPresent(),"Album create: ERROR");
         Assert.isTrue(!optionalAlbum.get().getCanciones().isEmpty(), "El album esta vacio: ERROR, deberia de contener una cancion.");
         cancion = optionalAlbum.get().getCanciones().get(0);
+        //getUltimaCancion cuando esta a null
+        Assert.isTrue(!userService.getUltimaCancion(optionalUsuario.get()).isPresent(), "getUltimaCancion: ERROR");
         optionalUsuario = userService.modifyLastPlay(optionalUsuario.get().getId(), cancion.getId(), 90, 1);
         Assert.isTrue(optionalUsuario.isPresent() && userService.getUltimaCancion(optionalUsuario.get()).get().getNombre().contains(cancion.getNombre()),"Usuario modifyLastPlay && getUltimaCancion: ERROR");
+        //modifylastplay(cancion) de usuario que no existe
+        Optional<Usuario> optionalUsuario1 = userService.modifyLastPlay(100, cancion.getId(), 90, 1);
+        Assert.isTrue(!optionalUsuario1.isPresent(), "Usuario modifyLastPlay && getUltimaCancion: ERROR");
         //modifyLastPlay && getUltimoPodcast
         Podcast podcast = new Podcast();
         podcast.setNombre("Podcast1");
         Optional<Podcast> optionalPodcast = podcastService.create(podcast);
         Assert.isTrue(optionalPodcast.isPresent(),"Podcast create: ERROR");
+        //getUltimaPodcast cuando esta a null
+        Assert.isTrue(!userService.getUltimoPodcast(optionalUsuario.get()).isPresent(), "getUltimoPodcast: ERROR");
         optionalUsuario = userService.modifyLastPlay(optionalUsuario.get().getId(), podcast.getId(), 90, 2);
         Assert.isTrue(optionalUsuario.isPresent() && userService.getUltimoPodcast(optionalUsuario.get()).get().getNombre().contains(podcast.getNombre()),"Usuario modifyLastPlay && getUltimoPodcast: ERROR");
+        //modifylastplay(podcast) de usuario que no existe
+        optionalUsuario1 = userService.modifyLastPlay(100, podcast.getId(), 90, 1);
+        Assert.isTrue(!optionalUsuario1.isPresent(), "Usuario modifyLastPlay && getUltimoPodcast: ERROR");
         //setAvatar
         optionalUsuario = userService.setAvatar(optionalUsuario.get().getId(), "Avatar1");
         Assert.isTrue(optionalUsuario.isPresent() && optionalUsuario.get().getNombre_avatar().contains("Avatar1"),"Usuario setAvatar: ERROR");
@@ -109,5 +119,7 @@ class UserServiceTest {
         Assert.isTrue(podcastService.deletePodcast(optionalPodcast.get().getId()), "Podcast delete: ERROR");
         Assert.isTrue(albumService.deleteAlbum(optionalAlbum.get().getId()), "Album delete: ERROR");
         Assert.isTrue(artistaService.deleteArtista(optionalArtista.get().getId()), "Album delete: ERROR");
+        //delete de un usuario que no existe
+        Assert.isTrue(!userService.deleteUser(100),"Usuario delete: ERROR");
     }
 }

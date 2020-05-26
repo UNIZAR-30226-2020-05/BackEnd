@@ -43,12 +43,6 @@ public class PodcastService {
         return Optional.of(podcastRepository.save(podcast));
     }
 
-    @Transactional
-    public void deleteByName(String name) {
-        Optional<Podcast> c = getByName(name);
-        c.ifPresent(podcast -> podcastRepository.delete(podcast));
-    }
-
     public Optional<InputStreamResource> buscarPodcast(String nombre) {
         Resource resource = resourceLoader.getResource(
                 "file:data/podcast/" + nombre + ".mp3");
